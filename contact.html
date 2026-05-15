@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — NOVA ESTATE</title>
+  <meta name="description" content="Get in touch with NOVA Estate. Schedule a consultation, visit our office, or send us a message.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .contact-hero {
+      height: 50vh; min-height: 350px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-secondary);
+      margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      transition: all var(--transition-fast);
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--color-gold);
+      box-shadow: 0 0 20px var(--color-gold-glow);
+    }
+    .form-group textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+    .form-group select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+    }
+    .form-group select option {
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    /* Info Cards */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .contact-info-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      transition: all var(--transition-base);
+    }
+    .contact-info-card:hover {
+      border-color: var(--color-border-light);
+      transform: translateX(5px);
+    }
+    .contact-info-icon {
+      width: 50px; height: 50px;
+      min-width: 50px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .contact-info-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      margin-bottom: 0.3rem;
+    }
+    .contact-info-card p {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Map placeholder */
+    .map-section {
+      max-width: 1100px;
+      margin: 3rem auto 0;
+    }
+    .map-container {
+      width: 100%;
+      height: 350px;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .map-container::before {
+      content: '📍';
+      font-size: 3rem;
+      z-index: 1;
+    }
+    .map-container::after {
+      content: '955 Rodeo Drive, Beverly Hills, CA 90210';
+      position: absolute;
+      bottom: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--color-text-secondary);
+    }
+    .map-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--color-border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.3;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-info-card { flex-direction: column; text-align: center; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">NOVA</div>
+      <div class="loading-bar"><div class="loading-bar-fill" id="loading-fill"></div></div>
+    </div>
+  </div>
+  <div class="cursor-follower"></div>
+  <div id="three-container"></div>
+
+  <header class="nav-header">
+    <a href="index.html" class="nav-logo">NOVA<span>.</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="properties.html">Properties</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html" class="active">Contact</a>
+      <a href="property-detail.html" class="nav-cta">Featured</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <section class="contact-hero">
+    <div style="position: relative; z-index: 1;">
+      <p class="section-subtitle" style="animation: fadeInUp 1s ease 0.3s forwards; opacity: 0;">Get in Touch</p>
+      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Let's <span class="gold-text">Connect</span></h1>
+      <p style="color: var(--color-text-secondary); animation: fadeInUp 1s ease 0.7s forwards; opacity: 0;">Begin your journey to exceptional living. We're here to help.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="contact-grid">
+      <!-- Form -->
+      <div class="contact-form reveal">
+        <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Send a <span class="gold-text">Message</span></h3>
+        <form id="contactForm" onsubmit="return handleSubmit(event)">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="John Sterling" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="john@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="+1 (888) 555-0123">
+          </div>
+          <div class="form-group">
+            <label for="interest">Interest</label>
+            <select id="interest">
+              <option value="">Select an option</option>
+              <option value="buying">Buying a Property</option>
+              <option value="selling">Selling a Property</option>
+              <option value="investing">Investment Advisory</option>
+              <option value="consulting">Development Consulting</option>
+              <option value="other">Other Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Tell us about your vision..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+            Send Message
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Info -->
+      <div class="contact-info">
+        <div class="contact-info-card reveal">
+          <div class="contact-info-icon">📍</div>
+          <div>
+            <h4>Visit Our Office</h4>
+            <p>955 Rodeo Drive<br>Beverly Hills, CA 90210<br>United States</p>
+          </div>
+        </div>
+        <div class="contact-info-card reveal" style="transition-delay: 0.1s;">
+          <div class="contact-info-icon">📞</div>
+          <div>
+            <h4>Call Us</h4>
+            <p>+1 (888) 555-0123<br>Mon–Sat, 9AM–7PM PT</p>
+          </div>
+        </div>
+        <div class="contact-info-card reveal" style="transition-delay: 0.2s;">
+          <div class="contact-info-icon">✉️</div>
+          <div>
+            <h4>Email Us</h4>
+            <p>info@novaestate.com<br>concierge@novaestate.com</p>
+          </div>
+        </div>
+        <div class="contact-info-card reveal" style="transition-delay: 0.3s;">
+          <div class="contact-info-icon">🕐</div>
+          <div>
+            <h4>Office Hours</h4>
+            <p>Monday – Saturday: 9AM – 7PM<br>Sunday: By Appointment</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="map-section reveal">
+      <div class="map-container">
+        <div class="map-grid-overlay"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>NOVA<span class="gold-text">.</span></h3>
+        <p>Curating extraordinary properties and exceptional lifestyles since 2024.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a><a href="about.html">About Us</a><a href="properties.html">Properties</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h4>Properties</h4>
+        <a href="properties.html">Luxury Villas</a><a href="properties.html">Penthouse</a><a href="properties.html">Estates</a>
+      </div>
+      <div class="footer-column">
+        <h4>Contact</h4>
+        <a href="contact.html">info@novaestate.com</a><a href="contact.html">+1 (888) 555-0123</a><a href="contact.html">955 Rodeo Drive, BH</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 NOVA Estate. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Twitter">X</a>
+        <a href="#" aria-label="LinkedIn">LI</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/contact-scene.js"></script>
+  <script src="js/shared.js"></script>
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '✓ Message Sent!';
+      btn.style.background = 'linear-gradient(135deg, #4ade80, #22c55e)';
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.background = '';
+        e.target.reset();
+      }, 3000);
+      return false;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — NOVA ESTATE</title>
+  <meta name="description" content="Browse our gallery of stunning luxury properties from around the world.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .gallery-hero {
+      height: 50vh; min-height: 350px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 1.5rem;
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 1.5rem;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.8s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(10,10,15,0.9) 100%);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+    .gallery-item:hover .gallery-item-overlay {
+      opacity: 1;
+    }
+    .gallery-item-overlay h4 {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--color-text);
+    }
+    .gallery-item-overlay p {
+      color: var(--color-gold);
+      font-size: 0.85rem;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-base);
+    }
+    .lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      color: var(--color-text);
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: color var(--transition-fast);
+    }
+    .lightbox-close:hover { color: var(--color-gold); }
+
+    @media (max-width: 1024px) {
+      .gallery-masonry { columns: 2; }
+    }
+    @media (max-width: 640px) {
+      .gallery-masonry { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">NOVA</div>
+      <div class="loading-bar"><div class="loading-bar-fill" id="loading-fill"></div></div>
+    </div>
+  </div>
+  <div class="cursor-follower"></div>
+  <div id="three-container"></div>
+
+  <header class="nav-header">
+    <a href="index.html" class="nav-logo">NOVA<span>.</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="properties.html">Properties</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="property-detail.html" class="nav-cta">Featured</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <section class="gallery-hero">
+    <div style="position: relative; z-index: 1;">
+      <p class="section-subtitle" style="animation: fadeInUp 1s ease 0.3s forwards; opacity: 0;">Visual Journey</p>
+      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Our <span class="gold-text">Collection</span></h1>
+      <p style="color: var(--color-text-secondary); animation: fadeInUp 1s ease 0.7s forwards; opacity: 0;">A curated visual journey through the world's most extraordinary properties.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="gallery-masonry">
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=85" alt="Luxury Villa" loading="lazy">
+        <div class="gallery-item-overlay">
+          <div>
+            <h4>Villa Serenity</h4>
+            <p>Beverly Hills, CA</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay: 0.05s;">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=85" alt="Glass House" loading="lazy">
+        <div class="gallery-item-overlay">
+          <div>
+            <h4>Glass Horizon</h4>
+            <p>Malibu, CA</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay: 0.1s;">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=85" alt="Chateau" loading="lazy">
+        <div class="gallery-item-overlay">
+          <div>
+            <h4>Château Lumière</h4>
+            <p>Saint-Tropez</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay: 0.15s;">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=85" alt="Penthouse" loading="lazy">
+        <div class="gallery-item-overlay">
+          <div>
+            <h4>Sky Penthouse</h4>
+            <p>New York City</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay: 0.2s;">
+        <img src="https://images.unsplash.com/photo-1600566753086-00f18d6f5bc1?w=600&q=85" alt="Modern Home" loading="lazy">
+        <div class="gallery-item-overlay">
+          <div>
+            <h4>Desert Modern</h4>
+            <p>Palm Springs, CA</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay: 0.25s;">
+        <img src="https://images.unsplash.com/photo-1613977257363-707f934d4aa9?w=600&q=85" alt="Villa" loading="lazy">
+        <div class="gallery-item-overlay">
+          <div>
+            <h4>Vista Mare</h4>
+            <p>Sardinia, Italy</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay: 0.3s;">
+        <img src="https://images.unsplash.com/photo-1600573472556-e6361a3fe3ae?w=600&q=85" alt="Interior" loading="lazy">
+        <div class="gallery-item-overlay">
+          <div>
+            <h4>Grand Salon</h4>
+            <p>Paris, France</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay: 0.35s;">
+        <img src="https://images.unsplash.com/photo-1600585154084-4e5fe7c39198?w=600&q=85" alt="Master Bedroom" loading="lazy">
+        <div class="gallery-item-overlay">
+          <div>
+            <h4>Master Suite</h4>
+            <p>Miami, FL</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item reveal" style="transition-delay: 0.4s;">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=85" alt="Pool" loading="lazy">
+        <div class="gallery-item-overlay">
+          <div>
+            <h4>Infinity Edge</h4>
+            <p>Santorini, Greece</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>NOVA<span class="gold-text">.</span></h3>
+        <p>Curating extraordinary properties and exceptional lifestyles since 2024.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a><a href="about.html">About Us</a><a href="properties.html">Properties</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h4>Properties</h4>
+        <a href="properties.html">Luxury Villas</a><a href="properties.html">Penthouse</a><a href="properties.html">Estates</a>
+      </div>
+      <div class="footer-column">
+        <h4>Contact</h4>
+        <a href="contact.html">info@novaestate.com</a><a href="contact.html">+1 (888) 555-0123</a><a href="contact.html">955 Rodeo Drive, BH</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 NOVA Estate. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Twitter">X</a>
+        <a href="#" aria-label="LinkedIn">LI</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/gallery-scene.js"></script>
+  <script src="js/shared.js"></script>
+  <script>
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src.replace('w=600', 'w=1200');
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    lightboxClose.addEventListener('click', () => {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
+</body>
+</html>

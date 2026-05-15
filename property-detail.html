@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Villa Serenity — NOVA ESTATE</title>
+  <meta name="description" content="Experience Villa Serenity in Beverly Hills: a 6-bedroom, 8-bathroom luxury estate with panoramic views.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .detail-hero {
+      height: 60vh; min-height: 450px;
+      display: flex; align-items: flex-end;
+      position: relative; overflow: hidden;
+    }
+    .detail-hero-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .detail-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(10,10,15,0.95) 100%);
+    }
+    .detail-hero-content {
+      position: relative; z-index: 1;
+      padding: 3rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .detail-hero-content h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+    }
+    .detail-hero-content .price {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--color-gold);
+      margin-top: 0.5rem;
+    }
+
+    /* Detail Grid */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .detail-specs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    .detail-spec {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .detail-spec .icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .detail-spec .value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--color-gold);
+      font-weight: 700;
+    }
+    .detail-spec .label {
+      color: var(--color-text-secondary);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.2rem;
+    }
+
+    .detail-desc p {
+      color: var(--color-text-secondary);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Amenities */
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .amenity-item {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: center;
+      transition: all var(--transition-base);
+    }
+    .amenity-item:hover {
+      border-color: var(--color-gold);
+      transform: translateY(-3px);
+    }
+    .amenity-item .icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .amenity-item .name {
+      font-size: 0.85rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* Image Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    .gallery-grid img {
+      width: 100%; height: 300px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      transition: transform var(--transition-base);
+      cursor: pointer;
+    }
+    .gallery-grid img:hover { transform: scale(1.02); }
+    .gallery-grid .full { grid-column: 1 / -1; height: 400px; }
+
+    @media (max-width: 768px) {
+      .detail-grid { grid-template-columns: 1fr; }
+      .detail-specs { grid-template-columns: repeat(2, 1fr); }
+      .amenities-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-grid img { height: 250px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">NOVA</div>
+      <div class="loading-bar"><div class="loading-bar-fill" id="loading-fill"></div></div>
+    </div>
+  </div>
+  <div class="cursor-follower"></div>
+  <div id="three-container"></div>
+
+  <header class="nav-header">
+    <a href="index.html" class="nav-logo">NOVA<span>.</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="properties.html">Properties</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="property-detail.html" class="nav-cta">Featured</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <!-- Hero Image -->
+  <section class="detail-hero">
+    <img class="detail-hero-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85" alt="Villa Serenity">
+    <div class="detail-hero-overlay"></div>
+    <div class="detail-hero-content">
+      <p class="section-subtitle">Beverly Hills, California</p>
+      <h1>Villa <span class="gold-text">Serenity</span></h1>
+      <p class="price">$28,500,000</p>
+    </div>
+  </section>
+
+  <!-- Details -->
+  <section class="section">
+    <div class="detail-grid">
+      <div>
+        <h2 class="section-title" style="margin-bottom: 1.5rem;">Property <span class="gold-text">Details</span></h2>
+        <div class="detail-specs">
+          <div class="detail-spec reveal">
+            <div class="icon">🏠</div>
+            <div class="value">6</div>
+            <div class="label">Bedrooms</div>
+          </div>
+          <div class="detail-spec reveal" style="transition-delay: 0.05s;">
+            <div class="icon">🚿</div>
+            <div class="value">8</div>
+            <div class="label">Bathrooms</div>
+          </div>
+          <div class="detail-spec reveal" style="transition-delay: 0.1s;">
+            <div class="icon">📐</div>
+            <div class="value">8,500</div>
+            <div class="label">Sq. Ft.</div>
+          </div>
+          <div class="detail-spec reveal" style="transition-delay: 0.15s;">
+            <div class="icon">🏊</div>
+            <div class="value">2024</div>
+            <div class="label">Year Built</div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-desc reveal">
+        <h2 class="section-title" style="margin-bottom: 1.5rem;">About This <span class="gold-text">Residence</span></h2>
+        <p>Perched in the prestigious heights of Beverly Hills, Villa Serenity offers an unparalleled living experience. This architectural masterpiece seamlessly blends modern luxury with timeless elegance.</p>
+        <p>Floor-to-ceiling windows frame panoramic views from the Pacific Ocean to the downtown skyline. Every detail, from the hand-selected marble flooring to the custom Italian cabinetry, speaks to an uncompromising commitment to quality.</p>
+        <p>The estate features a private wellness wing with a state-of-the-art gym, spa, and infinity pool that appears to merge with the horizon. Outdoor entertaining is effortless across the terraced gardens and al fresco dining pavilion.</p>
+        <a href="contact.html" class="btn btn-primary" style="margin-top: 1rem;">
+          Schedule Private Tour
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Amenities -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-subtitle">Amenities</p>
+        <h2 class="section-title">Everything You <span class="gold-text">Deserve</span></h2>
+      </div>
+      <div class="amenities-grid">
+        <div class="amenity-item reveal"><div class="icon">🏊</div><div class="name">Infinity Pool</div></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.05s;"><div class="icon">🧘</div><div class="name">Private Spa</div></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.1s;"><div class="icon">🏋️</div><div class="name">Gym</div></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.15s;"><div class="icon">🍷</div><div class="name">Wine Cellar</div></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.2s;"><div class="icon">🎬</div><div class="name">Home Theater</div></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.25s;"><div class="icon">🌿</div><div class="name">Terraced Gardens</div></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.3s;"><div class="icon">🚗</div><div class="name">6-Car Garage</div></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.35s;"><div class="icon">🔒</div><div class="name">24/7 Security</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section">
+    <div class="section-header">
+      <p class="section-subtitle">Gallery</p>
+      <h2 class="section-title">View the <span class="gold-text">Residence</span></h2>
+    </div>
+    <div class="gallery-grid">
+      <img class="full reveal" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=85" alt="Living Room" loading="lazy">
+      <img class="reveal" style="transition-delay: 0.1s;" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Kitchen" loading="lazy">
+      <img class="reveal" style="transition-delay: 0.1s;" src="https://images.unsplash.com/photo-1600566753086-00f18d6f5bc1?w=600&q=80" alt="Pool View" loading="lazy">
+      <img class="reveal" style="transition-delay: 0.2s;" src="https://images.unsplash.com/photo-1600573472556-e6361a3fe3ae?w=600&q=80" alt="Dining Room" loading="lazy">
+      <img class="reveal" style="transition-delay: 0.2s;" src="https://images.unsplash.com/photo-1600585154084-4e5fe7c39198?w=600&q=80" alt="Master Bedroom" loading="lazy">
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>NOVA<span class="gold-text">.</span></h3>
+        <p>Curating extraordinary properties and exceptional lifestyles since 2024.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a><a href="about.html">About Us</a><a href="properties.html">Properties</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h4>Properties</h4>
+        <a href="properties.html">Luxury Villas</a><a href="properties.html">Penthouse</a><a href="properties.html">Estates</a>
+      </div>
+      <div class="footer-column">
+        <h4>Contact</h4>
+        <a href="contact.html">info@novaestate.com</a><a href="contact.html">+1 (888) 555-0123</a><a href="contact.html">955 Rodeo Drive, BH</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 NOVA Estate. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Twitter">X</a>
+        <a href="#" aria-label="LinkedIn">LI</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/property-detail-scene.js"></script>
+  <script src="js/shared.js"></script>
+</body>
+</html>

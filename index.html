@@ -1,753 +1,458 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Aurum — Luxury Hotel & Fine Dining</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<style>
-:root{
-  --bg:#0a0908;
-  --bg2:#100f0d;
-  --bg3:#161410;
-  --surface:#1a1714;
-  --surface2:#201d19;
-  --gold:#c9a84c;
-  --gold2:#e8c97a;
-  --gold-dim:rgba(201,168,76,0.12);
-  --gold-mid:rgba(201,168,76,0.25);
-  --cream:#f5f0e8;
-  --text:#f0ebe0;
-  --mid:#a89880;
-  --faint:#5c5448;
-  --border:rgba(201,168,76,0.15);
-  --border2:rgba(255,255,255,0.06);
-  --r:4px;
-  --shadow:0 8px 40px rgba(0,0,0,0.5);
-  --shadow-gold:0 8px 40px rgba(201,168,76,0.15);
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOVA ESTATE — Luxury Real Estate</title>
+  <meta name="description" content="Discover exceptional luxury properties with NOVA ESTATE. Curated collection of the world's finest residences.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Home page specific styles */
+    #three-container { z-index: 0; }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(10, 10, 15, 0.3) 0%,
+        rgba(10, 10, 15, 0.6) 50%,
+        rgba(10, 10, 15, 0.9) 100%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 2rem;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--color-gold);
+      border: 1px solid var(--color-gold);
+      padding: 0.5rem 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeInUp 1s ease 0.3s forwards;
+      opacity: 0;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 1s ease 0.5s forwards;
+      opacity: 0;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, #e8d48b, #c9a84c, #a8882c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      color: var(--color-text-secondary);
+      max-width: 550px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+      animation: fadeInUp 1s ease 0.7s forwards;
+      opacity: 0;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease 0.9s forwards;
+      opacity: 0;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: fadeInUp 1s ease 1.2s forwards;
+      opacity: 0;
+    }
+    .hero-scroll a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--color-text-muted);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .scroll-indicator {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--color-gold), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
 
-/* ── CURSOR ── */
-body{cursor:none;}
-.cursor{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;}
-.cursor-ring{display:none;}
+    /* Featured Section */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .featured-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      height: 400px;
+    }
+    .featured-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+    .featured-card:hover img {
+      transform: scale(1.08);
+    }
+    .featured-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(10, 10, 15, 0.95) 100%);
+      transition: opacity 0.3s ease;
+    }
+    .featured-card-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+    }
+    .featured-card-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+    }
+    .featured-card-content .location {
+      color: var(--color-text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+    .featured-card-content .price {
+      color: var(--color-gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .featured-card-tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--color-gold);
+      color: var(--color-bg);
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
 
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:0 60px;height:72px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(10,9,8,0.92);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-}
-.logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold);text-decoration:none;cursor:none;}
-.logo span{color:var(--text);font-weight:300;}
-.nav-links{display:flex;gap:36px;list-style:none;}
-.nav-links a{color:var(--mid);text-decoration:none;font-size:12px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;transition:color .3s;cursor:none;}
-.nav-links a:hover{color:var(--gold);}
-.nav-reserve{
-  font-family:'Jost',sans-serif;
-  font-size:11px;font-weight:500;
-  letter-spacing:0.2em;text-transform:uppercase;
-  border:1px solid var(--gold);color:var(--gold);
-  padding:10px 24px;text-decoration:none;
-  transition:all .3s;cursor:none;
-}
-.nav-reserve:hover{background:var(--gold);color:var(--bg);}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
-.hamburger span{display:block;width:22px;height:1px;background:var(--gold);transition:all .25s;}
-.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
-.hamburger.open span:nth-child(2){opacity:0;}
-.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
-.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(10,9,8,0.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:24px;z-index:99;flex-direction:column;gap:0;}
-.mobile-menu.open{display:flex;}
-.mobile-menu a{color:var(--mid);text-decoration:none;font-size:15px;font-weight:400;letter-spacing:0.1em;padding:16px 0;border-bottom:1px solid var(--border2);transition:color .2s;}
-.mobile-menu a:last-child{border:none;color:var(--gold);padding-top:20px;text-align:center;border:1px solid var(--gold);margin-top:12px;}
 
-/* ── PAGES ── */
-.page{display:none;padding-top:72px;}
-.page.active{display:block;}
+    /* Testimonial */
+    .testimonial-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .testimonial-stars {
+      color: var(--color-gold);
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--color-text);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .testimonial-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .testimonial-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .testimonial-role {
+      color: var(--color-text-secondary);
+      font-size: 0.8rem;
+    }
 
-/* ── HERO ── */
-.hero{
-  height:calc(100vh - 72px);
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-  text-align:center;
-}
-.hero-bg{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.04) 0%, transparent 50%),
-    linear-gradient(180deg, #0a0908 0%, #12100d 40%, #0a0908 100%);
-}
-/* decorative lines */
-.hero-bg::before{
-  content:'';position:absolute;inset:0;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(201,168,76,0.03) 80px, rgba(201,168,76,0.03) 81px),
-    repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(201,168,76,0.03) 80px, rgba(201,168,76,0.03) 81px);
-}
-.hero-content{position:relative;z-index:1;max-width:800px;padding:0 24px;}
-.hero-tag{
-  display:inline-block;
-  font-size:10px;font-weight:400;letter-spacing:0.4em;text-transform:uppercase;
-  color:var(--gold);border:1px solid var(--border);
-  padding:8px 24px;margin-bottom:32px;
-}
-.hero h1{
-  font-family:'Cormorant Garamond',serif;
-  font-weight:300;font-size:clamp(56px,9vw,110px);
-  line-height:0.95;letter-spacing:-1px;
-  color:var(--cream);margin-bottom:8px;
-}
-.hero h1 em{font-style:italic;color:var(--gold);}
-.hero-sub{
-  font-size:11px;font-weight:400;letter-spacing:0.35em;
-  text-transform:uppercase;color:var(--mid);
-  margin-bottom:40px;
-}
-.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
-.btn-gold{
-  font-family:'Jost',sans-serif;
-  font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;
-  background:var(--gold);color:var(--bg);
-  padding:14px 32px;border:none;cursor:none;
-  transition:all .3s;text-decoration:none;display:inline-block;
-}
-.btn-gold:hover{background:var(--gold2);}
-.btn-ghost{
-  font-family:'Jost',sans-serif;
-  font-size:11px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;
-  background:transparent;color:var(--mid);
-  padding:14px 32px;border:1px solid var(--faint);
-  cursor:none;transition:all .3s;text-decoration:none;display:inline-block;
-}
-.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
-.hero-scroll{
-  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--faint);
-}
-.scroll-line{width:1px;height:40px;background:linear-gradient(var(--gold),transparent);animation:scrollAnim 2s infinite;}
-@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 6rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-/* ── SECTION COMMON ── */
-.wrap{max-width:1200px;margin:0 auto;padding:100px 60px;}
-.gold-line{width:40px;height:1px;background:var(--gold);margin-bottom:20px;}
-.sec-tag{font-size:10px;font-weight:400;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
-h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(36px,5vw,64px);color:var(--cream);letter-spacing:-0.5px;line-height:1.05;margin-bottom:16px;}
-h2 em{font-style:italic;color:var(--gold);}
-.sec-p{font-size:14px;color:var(--mid);font-weight:300;max-width:480px;line-height:1.9;margin-bottom:56px;letter-spacing:0.02em;}
-.divider{border:none;border-top:1px solid var(--border2);margin:0 60px;}
-
-/* ── ABOUT ── */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-.about-img-wrap{position:relative;}
-.about-main-img{
-  width:100%;aspect-ratio:3/4;
-  background:linear-gradient(135deg,var(--surface) 0%,var(--bg3) 100%);
-  border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:80px;
-  position:relative;overflow:hidden;
-}
-.about-main-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);}
-.about-badge{
-  position:absolute;bottom:-20px;right:-20px;
-  background:var(--gold);color:var(--bg);
-  padding:24px;text-align:center;
-  font-family:'Cormorant Garamond',serif;
-}
-.badge-num{font-size:36px;font-weight:500;display:block;line-height:1;}
-.badge-text{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;}
-.about-text h2{margin-bottom:20px;}
-.about-text p{font-size:14px;color:var(--mid);line-height:1.9;font-weight:300;margin-bottom:14px;}
-.about-awards{display:flex;flex-direction:column;gap:12px;margin-top:28px;}
-.award{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border);background:var(--surface);}
-.award-ic{color:var(--gold);font-size:20px;flex-shrink:0;}
-.award-text{font-size:13px;color:var(--mid);font-weight:300;}
-.award-text strong{color:var(--text);font-weight:500;display:block;font-size:14px;}
-
-/* ── MENU ── */
-.menu-bg{background:var(--bg2);}
-.menu-tabs{display:flex;gap:0;margin-bottom:48px;border-bottom:1px solid var(--border);}
-.mtab{
-  font-family:'Jost',sans-serif;
-  font-size:11px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--mid);padding:14px 28px;
-  background:transparent;border:none;cursor:pointer;
-  border-bottom:2px solid transparent;margin-bottom:-1px;
-  transition:all .25s;
-}
-.mtab.active{color:var(--gold);border-bottom-color:var(--gold);}
-.menu-section{display:none;}
-.menu-section.active{display:block;}
-.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border2);}
-.menu-item{
-  background:var(--surface);
-  padding:24px 28px;
-  display:flex;justify-content:space-between;align-items:flex-start;gap:20px;
-  transition:background .25s;
-}
-.menu-item:hover{background:var(--surface2);}
-.mi-left{}
-.mi-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--cream);margin-bottom:6px;}
-.mi-desc{font-size:12.5px;color:var(--mid);font-weight:300;line-height:1.6;max-width:300px;}
-.mi-tag{display:inline-block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:2px 8px;margin-top:8px;}
-.mi-price{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold);white-space:nowrap;flex-shrink:0;}
-
-/* ── GALLERY ── */
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  grid-template-rows:auto;
-  gap:8px;
-}
-.gallery-item{
-  overflow:hidden;
-  background:var(--surface);
-  border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:48px;
-  transition:all .4s;
-  cursor:none;
-  position:relative;
-}
-.gallery-item::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(rgba(201,168,76,0),rgba(201,168,76,0.15));
-  opacity:0;transition:opacity .3s;
-}
-.gallery-item:hover::after{opacity:1;}
-.gallery-item:hover{transform:scale(1.02);}
-.g1{grid-column:span 2;grid-row:span 2;aspect-ratio:1;font-size:80px;}
-.g2{aspect-ratio:1;}
-.g3{aspect-ratio:1;}
-.g4{aspect-ratio:1;}
-.g5{aspect-ratio:1;}
-.g6{grid-column:span 2;aspect-ratio:2/1;font-size:64px;}
-.gallery-caption{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:16px;background:linear-gradient(transparent,rgba(0,0,0,0.7));
-  font-size:11px;letter-spacing:0.15em;text-transform:uppercase;
-  color:var(--cream);opacity:0;transition:opacity .3s;
-}
-.gallery-item:hover .gallery-caption{opacity:1;}
-
-/* ── ROOMS ── */
-.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.room-card{
-  border:1px solid var(--border);background:var(--surface);
-  overflow:hidden;transition:all .3s;
-}
-.room-card:hover{border-color:var(--gold);box-shadow:var(--shadow-gold);}
-.room-img{
-  height:220px;background:linear-gradient(135deg,var(--surface2),var(--bg3));
-  display:flex;align-items:center;justify-content:center;
-  font-size:52px;border-bottom:1px solid var(--border2);
-  position:relative;overflow:hidden;
-  transition:all .3s;
-}
-.room-card:hover .room-img{background:linear-gradient(135deg,var(--bg3),#1a1200);}
-.room-badge{
-  position:absolute;top:16px;right:16px;
-  background:var(--gold);color:var(--bg);
-  font-size:9px;letter-spacing:0.2em;text-transform:uppercase;
-  font-weight:500;padding:4px 10px;
-}
-.room-body{padding:24px;}
-.room-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--cream);margin-bottom:8px;}
-.room-desc{font-size:13px;color:var(--mid);font-weight:300;line-height:1.7;margin-bottom:16px;}
-.room-features{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
-.rf{font-size:11px;color:var(--faint);letter-spacing:0.05em;display:flex;align-items:center;gap:4px;}
-.rf::before{content:'·';color:var(--gold);}
-.room-footer{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border2);}
-.room-price{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--gold);}
-.room-price span{font-size:12px;color:var(--faint);font-family:'Jost',sans-serif;margin-left:4px;}
-.btn-room{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:8px 16px;background:transparent;cursor:none;transition:all .25s;}
-.btn-room:hover{background:var(--gold-dim);}
-
-/* ── RESERVATION ── */
-.res-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start;}
-.res-info h2{margin-bottom:16px;}
-.res-info p{font-size:14px;color:var(--mid);font-weight:300;line-height:1.9;margin-bottom:32px;}
-.res-details{display:flex;flex-direction:column;gap:16px;}
-.rd{display:flex;align-items:flex-start;gap:14px;padding:16px;border:1px solid var(--border);background:var(--surface);}
-.rd-icon{font-size:20px;flex-shrink:0;color:var(--gold);}
-.rd-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:3px;}
-.rd-val{font-size:14px;color:var(--text);font-weight:300;}
-.res-form{background:var(--surface);border:1px solid var(--border);padding:40px;}
-.form-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--cream);margin-bottom:6px;}
-.form-sub{font-size:12px;color:var(--mid);letter-spacing:0.05em;margin-bottom:32px;}
-.f2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-.fg{margin-bottom:16px;}
-.fl{display:block;font-size:10px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:8px;}
-.fi,.fta,.fsel{
-  width:100%;background:var(--bg);
-  border:1px solid var(--border2);border-bottom:1px solid var(--faint);
-  padding:12px 0;color:var(--text);
-  font-family:'Jost',sans-serif;font-size:14px;font-weight:300;
-  outline:none;transition:border-color .2s;
-  -webkit-appearance:none;background:transparent;
-}
-.fi:focus,.fta:focus,.fsel:focus{border-bottom-color:var(--gold);}
-.fta{resize:vertical;min-height:80px;border:1px solid var(--border2);border-bottom:1px solid var(--faint);padding:12px 0;}
-.fsel option{background:var(--bg2);color:var(--text);}
-.fbtn{
-  width:100%;background:var(--gold);color:var(--bg);
-  font-family:'Jost',sans-serif;font-size:11px;font-weight:500;
-  letter-spacing:0.25em;text-transform:uppercase;
-  padding:16px;border:none;cursor:pointer;
-  margin-top:8px;transition:all .3s;
-}
-.fbtn:hover{background:var(--gold2);}
-.fok{display:none;margin-top:14px;padding:14px;background:rgba(201,168,76,0.1);border:1px solid var(--border);text-align:center;font-size:12px;color:var(--gold);letter-spacing:0.05em;}
-.ferr{display:none;margin-top:14px;padding:14px;background:rgba(200,50,50,0.1);border:1px solid rgba(200,50,50,0.3);text-align:center;font-size:12px;color:#e07070;}
-
-/* ── WA FAB ── */
-.wa-fab{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);padding:11px 20px 11px 12px;text-decoration:none;box-shadow:var(--shadow);transition:all .25s;cursor:none;}
-.wa-fab:hover{border-color:var(--gold);box-shadow:var(--shadow-gold);}
-.wa-icon{width:30px;height:30px;flex-shrink:0;}
-.wa-label{font-size:11px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);white-space:nowrap;}
-
-/* ── FOOTER ── */
-footer{background:var(--bg2);border-top:1px solid var(--border);}
-.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding:64px 60px 48px;}
-.footer-brand .logo{font-size:22px;letter-spacing:3px;display:inline-block;margin-bottom:16px;}
-.footer-brand p{font-size:13px;color:var(--mid);line-height:1.8;max-width:220px;font-weight:300;}
-.fc h4{font-size:10px;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
-.fc a{display:block;font-size:13px;color:var(--mid);text-decoration:none;margin-bottom:10px;letter-spacing:0.02em;transition:color .2s;cursor:none;}
-.fc a:hover{color:var(--gold);}
-.footer-bottom{border-top:1px solid var(--border2);padding:24px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-.footer-bottom p{font-size:11px;color:var(--faint);letter-spacing:0.05em;}
-.demo-badge{background:var(--gold-dim);color:var(--gold);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:4px 12px;border:1px solid var(--border);}
-
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
-
-/* ── RESPONSIVE ── */
-@media(max-width:960px){
-  nav{padding:0 20px;}
-  .nav-links,#navRes{display:none;}
-  .hamburger{display:flex;}
-  .wrap{padding:72px 20px;}
-  .divider{margin:0 20px;}
-  .about-grid,.res-grid{grid-template-columns:1fr;}
-  .rooms-grid{grid-template-columns:1fr 1fr;}
-  .gallery-grid{grid-template-columns:repeat(2,1fr);}
-  .g1{grid-column:span 2;}
-  .g6{grid-column:span 2;}
-  .menu-grid{grid-template-columns:1fr;}
-  .footer-top{grid-template-columns:1fr 1fr;padding:40px 20px 32px;}
-  .footer-bottom{padding:20px;}
-}
-@media(max-width:600px){
-  .rooms-grid{grid-template-columns:1fr;}
-  .gallery-grid{grid-template-columns:1fr 1fr;}
-  .f2{grid-template-columns:1fr;}
-  .hero h1{font-size:52px;}
-  body{cursor:auto;}
-  .cursor,.cursor-ring{display:none;}
-}
-</style>
+    @media (max-width: 768px) {
+      .featured-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">NOVA</div>
+      <div class="loading-bar">
+        <div class="loading-bar-fill" id="loading-fill"></div>
+      </div>
+    </div>
+  </div>
 
-<!-- CUSTOM CURSOR -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+  <!-- Custom Cursor -->
+  <div class="cursor-follower"></div>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="logo" onclick="showPage('home')">The <span>Aurum</span></a>
-  <ul class="nav-links">
-    <li><a href="#" onclick="showPage('home')">Home</a></li>
-    <li><a href="#" onclick="showPage('about')">About</a></li>
-    <li><a href="#" onclick="showPage('menu')">Menu</a></li>
-    <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
-    <li><a href="#" onclick="showPage('rooms')">Rooms</a></li>
-  </ul>
-  <a href="#" class="nav-reserve" id="navRes" onclick="showPage('reserve')">Reserve a Table</a>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
-</nav>
+  <!-- 3D Container -->
+  <div id="three-container"></div>
+  <div class="hero-overlay"></div>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#" onclick="showPage('home');closeMenu()">Home</a>
-  <a href="#" onclick="showPage('about');closeMenu()">About</a>
-  <a href="#" onclick="showPage('menu');closeMenu()">Menu</a>
-  <a href="#" onclick="showPage('gallery');closeMenu()">Gallery</a>
-  <a href="#" onclick="showPage('rooms');closeMenu()">Rooms</a>
-  <a href="#" onclick="showPage('reserve');closeMenu()">Reserve a Table</a>
-</div>
+  <!-- Navigation -->
+  <header class="nav-header">
+    <a href="index.html" class="nav-logo">NOVA<span>.</span></a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="properties.html">Properties</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="property-detail.html" class="nav-cta">Featured</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
 
-<!-- ══════════ HOME ══════════ -->
-<div class="page active" id="page-home">
-  <div class="hero">
-    <div class="hero-bg"></div>
+  <!-- Hero Section -->
+  <section class="page-hero" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
     <div class="hero-content">
-      <div class="hero-tag">Est. 2009 · Rampurhat</div>
-      <h1>The Art of<br><em>Fine Living</em></h1>
-      <p class="hero-sub">Luxury Hotel · Fine Dining · Curated Experiences</p>
-      <div class="hero-btns">
-        <button class="btn-gold" onclick="showPage('reserve')">Reserve a Table</button>
-        <button class="btn-ghost" onclick="showPage('menu')">Explore Menu</button>
+      <div class="hero-badge">Since 2024</div>
+      <h1 class="hero-title">
+        Where Vision<br>
+        <span>Meets Address</span>
+      </h1>
+      <p class="hero-subtitle">
+        Curating the world's most exceptional properties for those who demand nothing less than extraordinary.
+      </p>
+      <div class="hero-actions">
+        <a href="properties.html" class="btn btn-primary">
+          Explore Properties
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="contact.html" class="btn btn-outline">Schedule Visit</a>
       </div>
     </div>
-    <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
-  </div>
-
-  <!-- intro strip -->
-  <div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 60px;display:flex;justify-content:space-around;flex-wrap:wrap;gap:20px;">
-    <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold)">15+</div><div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-top:4px">Years of Excellence</div></div>
-    <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold)">48</div><div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-top:4px">Luxury Rooms</div></div>
-    <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold)">4.9★</div><div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-top:4px">Guest Rating</div></div>
-    <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold)">3</div><div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-top:4px">Dining Venues</div></div>
-  </div>
-
-  <div class="wrap">
-    <div class="about-grid">
-      <div class="about-img-wrap reveal">
-        <div class="about-main-img">🏨<div class="about-badge"><span class="badge-num">★★★★★</span><span class="badge-text">5 Star Luxury</span></div></div>
-      </div>
-      <div class="about-text reveal">
-        <div class="gold-line"></div>
-        <p class="sec-tag">Welcome to The Aurum</p>
-        <h2>Where Every<br>Moment is <em>Precious.</em></h2>
-        <p>Nestled in the heart of Rampurhat, The Aurum is West Bengal's premier luxury destination. A sanctuary of refined elegance where world-class hospitality meets authentic Bengali warmth.</p>
-        <p>From our award-winning restaurant to our handcrafted suites, every detail has been curated to create an experience that lingers long after you leave.</p>
-        <div style="display:flex;gap:16px;margin-top:28px;flex-wrap:wrap;">
-          <button class="btn-gold" onclick="showPage('rooms')">View Rooms</button>
-          <button class="btn-ghost" onclick="showPage('about')">Our Story</button>
-        </div>
-      </div>
+    <div class="hero-scroll">
+      <a href="#featured">
+        <span>Scroll</span>
+        <div class="scroll-indicator"></div>
+      </a>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- ══════════ ABOUT ══════════ -->
-<div class="page" id="page-about">
-  <div class="wrap">
-    <div style="max-width:640px;margin-bottom:72px;">
-      <div class="gold-line reveal"></div>
-      <p class="sec-tag reveal">Our Story</p>
-      <h2 class="reveal">A Legacy of<br><em>Uncompromising</em> Excellence.</h2>
-      <p class="sec-p reveal">Founded in 2009 by the Sharma family, The Aurum was born from a singular vision — to create a luxury experience worthy of the world stage, rooted in the soul of Bengal.</p>
-    </div>
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <p style="font-size:14px;color:var(--mid);line-height:1.9;font-weight:300;margin-bottom:14px;">The Aurum began as a 12-room boutique property with a small dining room. Today, it stands as a 48-room luxury hotel with three distinct dining venues — each offering a different facet of the world's finest cuisines.</p>
-        <p style="font-size:14px;color:var(--mid);line-height:1.9;font-weight:300;margin-bottom:14px;">Our philosophy is simple: every guest deserves to feel like royalty. From the hand-picked thread count of our linens to the sourcing of our ingredients — no detail is too small.</p>
-        <p style="font-size:14px;color:var(--mid);line-height:1.9;font-weight:300;margin-bottom:28px;">Our culinary team, led by Executive Chef Rajeev Banerjee — trained at Taj Hotels and Le Cordon Bleu Paris — crafts menus that celebrate both global technique and Bengal's extraordinary produce.</p>
-        <div class="about-awards">
-          <div class="award"><span class="award-ic">🏆</span><div class="award-text"><strong>Best Luxury Hotel — West Bengal 2023</strong>Tourism Excellence Awards</div></div>
-          <div class="award"><span class="award-ic">⭐</span><div class="award-text"><strong>5-Star Rating</strong>Ministry of Tourism, Government of India</div></div>
-          <div class="award"><span class="award-ic">🍽️</span><div class="award-text"><strong>Best Fine Dining Restaurant 2022</strong>Bengal Hospitality Awards</div></div>
-        </div>
+  <!-- Featured Properties -->
+  <section class="section section-dark" id="featured">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-subtitle">Featured Collection</p>
+        <h2 class="section-title">Exceptional <span class="gold-text">Properties</span></h2>
+        <p class="section-desc" style="text-align: center; margin: 0 auto;">
+          Handpicked residences that redefine luxury living across the world's most coveted destinations.
+        </p>
       </div>
-      <div class="about-img-wrap reveal">
-        <div class="about-main-img" style="font-size:60px;">👨‍🍳<div class="about-badge"><span class="badge-num">Chef</span><span class="badge-text">Rajeev Banerjee</span></div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ MENU ══════════ -->
-<div class="page menu-bg" id="page-menu">
-  <div class="wrap">
-    <div class="gold-line reveal"></div>
-    <p class="sec-tag reveal">Our Culinary Journey</p>
-    <h2 class="reveal">A Menu That<br><em>Tells a Story.</em></h2>
-    <p class="sec-p reveal">Every dish is an expression of craft, season, and culture — prepared with ingredients sourced from Bengal's finest farms and global artisan producers.</p>
-    <div class="menu-tabs">
-      <button class="mtab active" onclick="switchMenu('starters',this)">Starters</button>
-      <button class="mtab" onclick="switchMenu('mains',this)">Main Course</button>
-      <button class="mtab" onclick="switchMenu('desserts',this)">Desserts</button>
-      <button class="mtab" onclick="switchMenu('beverages',this)">Beverages</button>
-    </div>
-
-    <div class="menu-section active" id="menu-starters">
-      <div class="menu-grid">
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Smoked Hilsa Tartare</div><div class="mi-desc">Cured Padma hilsa, mustard cream, crispy rice, micro herbs, tobiko</div><span class="mi-tag">Chef's Special</span></div><div class="mi-price">₹680</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Truffle Arancini</div><div class="mi-desc">Saffron risotto balls, black truffle, aged parmesan, truffle aioli</div><span class="mi-tag">Vegetarian</span></div><div class="mi-price">₹520</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Charred Octopus</div><div class="mi-desc">Spanish octopus, smoked paprika, chorizo oil, pickled fennel, saffron</div></div><div class="mi-price">₹780</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Burrata & Heirloom Tomato</div><div class="mi-desc">Fresh burrata, heirloom tomatoes, aged balsamic, basil oil, sea salt</div><span class="mi-tag">Vegetarian</span></div><div class="mi-price">₹580</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Aurum Soup du Jour</div><div class="mi-desc">Chef's seasonal creation, served with artisan bread and cultured butter</div><span class="mi-tag">Daily Special</span></div><div class="mi-price">₹380</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Foie Gras Royale</div><div class="mi-desc">Pan-seared foie gras, cherry gastrique, brioche, edible gold, micro greens</div><span class="mi-tag">Signature</span></div><div class="mi-price">₹1,200</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section" id="menu-mains">
-      <div class="menu-grid">
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Coastal Lobster Thermidor</div><div class="mi-desc">Whole lobster, Cognac cream, gruyère gratin, haricots verts, pommes purée</div><span class="mi-tag">Signature</span></div><div class="mi-price">₹2,800</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Prime Beef Wellington</div><div class="mi-desc">Beef tenderloin, duxelles, prosciutto, puff pastry, Madeira jus, truffle potato</div><span class="mi-tag">Chef's Special</span></div><div class="mi-price">₹3,200</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Bengal Tiger Prawn Curry</div><div class="mi-desc">Tiger prawns, traditional mustard gravy, steamed basmati, papad, pickle</div><span class="mi-tag">Heritage Recipe</span></div><div class="mi-price">₹1,600</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Wild Mushroom Risotto</div><div class="mi-desc">Carnaroli rice, porcini, truffle oil, aged parmesan, crispy sage</div><span class="mi-tag">Vegetarian</span></div><div class="mi-price">₹980</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Lamb Rack Provençal</div><div class="mi-desc">French-trimmed lamb, herbed crust, ratatouille, rosemary jus, dauphinoise</div></div><div class="mi-price">₹2,400</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Pan-seared Sea Bass</div><div class="mi-desc">Seabass fillet, champagne velouté, sautéed spinach, crab ravioli, caviar</div><span class="mi-tag">Seasonal</span></div><div class="mi-price">₹1,800</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section" id="menu-desserts">
-      <div class="menu-grid">
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Valrhona Chocolate Soufflé</div><div class="mi-desc">Dark chocolate soufflé, Tahitian vanilla ice cream, gold leaf, cocoa nib</div><span class="mi-tag">Signature</span></div><div class="mi-price">₹680</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Bengali Mishti Platter</div><div class="mi-desc">Rosogolla, sandesh, mishti doi, rasgulla, served on antique silver</div><span class="mi-tag">Heritage</span></div><div class="mi-price">₹520</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Crème Brûlée</div><div class="mi-desc">Classic vanilla bean custard, caramelised sugar, fresh berries, shortbread</div></div><div class="mi-price">₹480</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Tarte Tatin</div><div class="mi-desc">Caramelised apple tart, Calvados cream, vanilla ice cream, candied walnuts</div></div><div class="mi-price">₹520</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section" id="menu-beverages">
-      <div class="menu-grid">
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">The Aurum Sling</div><div class="mi-desc">Gin, elderflower, fresh lime, cucumber, premium tonic, signature garnish</div><span class="mi-tag">Signature Cocktail</span></div><div class="mi-price">₹680</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Bengal Sunrise</div><div class="mi-desc">Mango vodka, passion fruit, grenadine, lime, gold shimmer, edible flowers</div><span class="mi-tag">Non-Alcoholic Available</span></div><div class="mi-price">₹580</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Single Estate Darjeeling Tea</div><div class="mi-desc">First flush Darjeeling, served in antique silver teapot with petit fours</div><span class="mi-tag">Signature</span></div><div class="mi-price">₹380</div></div>
-        <div class="menu-item"><div class="mi-left"><div class="mi-name">Cold Brew Coffee</div><div class="mi-desc">24-hour cold brew, Coorg arabica, served over crystal clear ice, oat milk optional</div></div><div class="mi-price">₹320</div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ GALLERY ══════════ -->
-<div class="page" id="page-gallery">
-  <div class="wrap">
-    <div class="gold-line reveal"></div>
-    <p class="sec-tag reveal">Visual Journey</p>
-    <h2 class="reveal">Moments Captured<br>in <em>Gold.</em></h2>
-    <p class="sec-p reveal">A glimpse into the world of The Aurum — where every corner is designed to be experienced.</p>
-    <div class="gallery-grid reveal">
-      <div class="gallery-item g1">🏨<div class="gallery-caption">The Grand Lobby</div></div>
-      <div class="gallery-item g2">🍽️<div class="gallery-caption">Fine Dining Hall</div></div>
-      <div class="gallery-item g3">🛏️<div class="gallery-caption">Presidential Suite</div></div>
-      <div class="gallery-item g4">🌿<div class="gallery-caption">Garden Terrace</div></div>
-      <div class="gallery-item g5">🍷<div class="gallery-caption">Wine Cellar</div></div>
-      <div class="gallery-item g6">🏊<div class="gallery-caption">Rooftop Pool & Lounge</div></div>
-      <div class="gallery-item g2">🧖<div class="gallery-caption">The Aurum Spa</div></div>
-      <div class="gallery-item g3">🎂<div class="gallery-caption">Patisserie</div></div>
-      <div class="gallery-item g4">🌅<div class="gallery-caption">Sunset Terrace</div></div>
-      <div class="gallery-item g5">🍳<div class="gallery-caption">Open Kitchen</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ ROOMS ══════════ -->
-<div class="page" id="page-rooms">
-  <div class="wrap">
-    <div class="gold-line reveal"></div>
-    <p class="sec-tag reveal">Accommodations</p>
-    <h2 class="reveal">Your Private<br><em>Sanctuary.</em></h2>
-    <p class="sec-p reveal">48 rooms and suites, each a world unto itself — designed for those who demand nothing less than perfection.</p>
-    <div class="rooms-grid">
-      <div class="room-card reveal">
-        <div class="room-img">🛏️<span class="room-badge">Most Popular</span></div>
-        <div class="room-body">
-          <div class="room-name">Deluxe Room</div>
-          <div class="room-desc">Elegant 45 sqm room with city views, king-size bed with premium linens, and a marble en-suite bathroom.</div>
-          <div class="room-features"><span class="rf">45 sqm</span><span class="rf">King Bed</span><span class="rf">City View</span><span class="rf">Free WiFi</span></div>
-          <div class="room-footer"><div class="room-price">₹8,500<span>/ night</span></div><button class="btn-room" onclick="showPage('reserve')">Book Now</button></div>
-        </div>
-      </div>
-      <div class="room-card reveal">
-        <div class="room-img">🌟<span class="room-badge">Best Value</span></div>
-        <div class="room-body">
-          <div class="room-name">Junior Suite</div>
-          <div class="room-desc">Spacious 72 sqm suite with separate living area, panoramic views, and exclusive butler service.</div>
-          <div class="room-features"><span class="rf">72 sqm</span><span class="rf">King Bed</span><span class="rf">Panoramic View</span><span class="rf">Butler</span></div>
-          <div class="room-footer"><div class="room-price">₹14,500<span>/ night</span></div><button class="btn-room" onclick="showPage('reserve')">Book Now</button></div>
-        </div>
-      </div>
-      <div class="room-card reveal">
-        <div class="room-img">👑<span class="room-badge">Exclusive</span></div>
-        <div class="room-body">
-          <div class="room-name">Presidential Suite</div>
-          <div class="room-desc">The pinnacle of luxury — 140 sqm of private grandeur with a personal terrace, plunge pool, and 24-hour butler.</div>
-          <div class="room-features"><span class="rf">140 sqm</span><span class="rf">Private Terrace</span><span class="rf">Plunge Pool</span><span class="rf">24hr Butler</span></div>
-          <div class="room-footer"><div class="room-price">₹38,000<span>/ night</span></div><button class="btn-room" onclick="showPage('reserve')">Book Now</button></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ RESERVE ══════════ -->
-<div class="page" id="page-reserve">
-  <div class="wrap">
-    <div class="res-grid">
-      <div class="res-info">
-        <div class="gold-line reveal"></div>
-        <p class="sec-tag reveal">Reservations</p>
-        <h2 class="reveal">Reserve Your<br><em>Evening.</em></h2>
-        <p class="reveal">We recommend reservations at least 48 hours in advance. For special occasions and private dining, please contact us directly.</p>
-        <div class="res-details reveal">
-          <div class="rd"><span class="rd-icon">🕐</span><div><div class="rd-label">Dining Hours</div><div class="rd-val">Lunch: 12:00 PM – 3:30 PM<br>Dinner: 7:00 PM – 11:30 PM</div></div></div>
-          <div class="rd"><span class="rd-icon">📞</span><div><div class="rd-label">Reservations</div><div class="rd-val">+91 98765 43210</div></div></div>
-          <div class="rd"><span class="rd-icon">📍</span><div><div class="rd-label">Location</div><div class="rd-val">Station Road, Rampurhat<br>West Bengal — 731224</div></div></div>
-          <div class="rd"><span class="rd-icon">👔</span><div><div class="rd-label">Dress Code</div><div class="rd-val">Smart casual to formal<br>Gentlemen: collared shirt required</div></div></div>
-        </div>
-      </div>
-      <div>
-        <div class="res-form reveal">
-          <div class="form-title">Table Reservation</div>
-          <p class="form-sub">Complete your reservation and we'll confirm within 2 hours</p>
-          <div class="f2">
-            <div><label class="fl">Full Name *</label><input class="fi" type="text" id="rName" placeholder="Your name"></div>
-            <div><label class="fl">Phone *</label><input class="fi" type="tel" id="rPhone" placeholder="+91 98765 43210"></div>
+      <div class="featured-grid">
+        <div class="featured-card reveal">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Modern Hillside Villa" loading="lazy">
+          <div class="featured-card-overlay"></div>
+          <span class="featured-card-tag">Featured</span>
+          <div class="featured-card-content">
+            <h3>Villa Serenity</h3>
+            <p class="location">Beverly Hills, California</p>
+            <p class="price">$28,500,000</p>
           </div>
-          <div class="f2">
-            <div><label class="fl">Email</label><input class="fi" type="email" id="rEmail" placeholder="your@email.com"></div>
-            <div><label class="fl">Number of Guests *</label><select class="fsel" id="rGuests"><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5 Guests</option><option>6+ Guests</option></select></div>
+        </div>
+        <div class="featured-card reveal" style="transition-delay: 0.1s;">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Modern Glass Mansion" loading="lazy">
+          <div class="featured-card-overlay"></div>
+          <span class="featured-card-tag">New</span>
+          <div class="featured-card-content">
+            <h3>Glass Horizon</h3>
+            <p class="location">Malibu, California</p>
+            <p class="price">$42,000,000</p>
           </div>
-          <div class="f2">
-            <div><label class="fl">Preferred Date *</label><input class="fi" type="date" id="rDate"></div>
-            <div><label class="fl">Preferred Time</label><select class="fsel" id="rTime"><option>Lunch — 12:00 PM</option><option>Lunch — 1:30 PM</option><option>Dinner — 7:00 PM</option><option>Dinner — 8:30 PM</option><option>Dinner — 9:30 PM</option></select></div>
+        </div>
+        <div class="featured-card reveal" style="transition-delay: 0.2s;">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Luxury Estate" loading="lazy">
+          <div class="featured-card-overlay"></div>
+          <span class="featured-card-tag">Premium</span>
+          <div class="featured-card-content">
+            <h3>Château Lumière</h3>
+            <p class="location">Saint-Tropez, France</p>
+            <p class="price">€35,000,000</p>
           </div>
-          <div class="fg"><label class="fl">Occasion / Special Requests</label><textarea class="fta" id="rNote" placeholder="Anniversary, birthday, dietary requirements, seating preference…"></textarea></div>
-          <button class="fbtn" onclick="makeReservation()">Confirm Reservation</button>
-          <div class="fok" id="resOk">✦ Your reservation request has been received. We'll confirm within 2 hours.</div>
-          <div class="ferr" id="resErr">Something went wrong. Please call us at +91 98765 43210.</div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- WA FAB -->
-<a class="wa-fab" href="https://wa.me/919876543210?text=Hello%20The%20Aurum%2C%20I%20would%20like%20to%20make%20a%20reservation." target="_blank" rel="noopener">
-  <svg class="wa-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.41A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" fill="#25D366"/><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.296-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="white"/></svg>
-  <span class="wa-label">Enquire</span>
-</a>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <a href="#" class="logo" onclick="showPage('home')" style="cursor:none;">The <span>Aurum</span></a>
-      <p>West Bengal's most celebrated luxury hotel and fine dining destination. Where every moment is crafted to perfection.</p>
+  <!-- Stats Section -->
+  <section class="section">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <h2><span data-count-to="15" data-count-suffix="+" data-count-duration="2000">0</span></h2>
+        <p>Years Experience</p>
+      </div>
+      <div class="stat-item reveal" style="transition-delay: 0.1s;">
+        <h2><span data-count-to="1200" data-count-suffix="+" data-count-duration="2500">0</span></h2>
+        <p>Properties Sold</p>
+      </div>
+      <div class="stat-item reveal" style="transition-delay: 0.2s;">
+        <h2><span data-count-to="48" data-count-suffix="" data-count-duration="2000">0</span></h2>
+        <p>Awards Won</p>
+      </div>
+      <div class="stat-item reveal" style="transition-delay: 0.3s;">
+        <h2><span data-count-to="32" data-count-suffix="" data-count-duration="2000">0</span></h2>
+        <p>Global Offices</p>
+      </div>
     </div>
-    <div class="fc">
-      <h4>Explore</h4>
-      <a href="#" onclick="showPage('about')">Our Story</a>
-      <a href="#" onclick="showPage('menu')">The Menu</a>
-      <a href="#" onclick="showPage('gallery')">Gallery</a>
-      <a href="#" onclick="showPage('rooms')">Rooms & Suites</a>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-subtitle">Testimonials</p>
+        <h2 class="section-title">What Our <span class="gold-text">Clients Say</span></h2>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">
+          "NOVA Estate didn't just find us a home — they understood our vision and found us a legacy. Their attention to detail and market insight is unparalleled in the luxury space."
+        </p>
+        <div class="testimonial-author">
+          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Client" loading="lazy">
+          <div>
+            <p class="testimonial-name">James Whitfield</p>
+            <p class="testimonial-role">CEO, Whitfield Capital</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="fc">
-      <h4>Visit</h4>
-      <a href="#">Station Road, Rampurhat</a>
-      <a href="#">West Bengal — 731224</a>
-      <a href="#">+91 98765 43210</a>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="cta-glow"></div>
+    <div class="reveal">
+      <p class="section-subtitle">Get Started</p>
+      <h2 class="section-title">Ready to Find Your <span class="gold-text">Dream Home</span>?</h2>
+      <p class="section-desc" style="text-align: center; margin: 0 auto 2rem;">
+        Let our team of experts guide you to the perfect property.
+      </p>
+      <a href="contact.html" class="btn btn-primary">
+        Schedule Consultation
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
     </div>
-    <div class="fc">
-      <h4>Hours</h4>
-      <a href="#">Lunch: 12pm – 3:30pm</a>
-      <a href="#">Dinner: 7pm – 11:30pm</a>
-      <a href="#" onclick="showPage('reserve')">Reserve a Table</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>NOVA<span class="gold-text">.</span></h3>
+        <p>Curating extraordinary properties and exceptional lifestyles since 2024. Your vision, our expertise.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="properties.html">Properties</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h4>Properties</h4>
+        <a href="properties.html">Luxury Villas</a>
+        <a href="properties.html">Penthouse</a>
+        <a href="properties.html">Estates</a>
+        <a href="properties.html">Commercial</a>
+      </div>
+      <div class="footer-column">
+        <h4>Contact</h4>
+        <a href="contact.html">info@novaestate.com</a>
+        <a href="contact.html">+1 (888) 555-0123</a>
+        <a href="contact.html">955 Rodeo Drive, BH</a>
+      </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 The Aurum Luxury Hotel. All rights reserved.</p>
-    <span class="demo-badge">Demo · Built by Yeor · yeor-agent.netlify.app</span>
-  </div>
-</footer>
+    <div class="footer-bottom">
+      <p>&copy; 2024 NOVA Estate. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Twitter">X</a>
+        <a href="#" aria-label="LinkedIn">LI</a>
+      </div>
+    </div>
+  </footer>
 
-<script>
-// EmailJS
-emailjs.init('yxmG9vJDmzpaXHEhz');
-
-// cursor
-const cur = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX + 'px';
-  cur.style.top = e.clientY + 'px';
-});
-
-// page nav
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  setTimeout(triggerReveal, 100);
-}
-
-// mobile menu
-function toggleMenu() {
-  document.getElementById('hamburger').classList.toggle('open');
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-function closeMenu() {
-  document.getElementById('hamburger').classList.remove('open');
-  document.getElementById('mobileMenu').classList.remove('open');
-}
-document.addEventListener('click', e => {
-  const h = document.getElementById('hamburger');
-  const m = document.getElementById('mobileMenu');
-  if (m && m.classList.contains('open') && !m.contains(e.target) && !h.contains(e.target)) closeMenu();
-});
-
-// menu tabs
-function switchMenu(id, btn) {
-  document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.mtab').forEach(b => b.classList.remove('active'));
-  document.getElementById('menu-' + id).classList.add('active');
-  btn.classList.add('active');
-}
-
-// reveal
-function triggerReveal() {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.page.active .reveal').forEach((el, i) => {
-    el.classList.remove('visible');
-    el.style.transitionDelay = (i % 4 * 0.1) + 's';
-    obs.observe(el);
-  });
-}
-triggerReveal();
-
-// reservation via EmailJS
-async function makeReservation() {
-  const name = document.getElementById('rName').value.trim();
-  const phone = document.getElementById('rPhone').value.trim();
-  const date = document.getElementById('rDate').value;
-  const ok = document.getElementById('resOk');
-  const err = document.getElementById('resErr');
-  ok.style.display = 'none'; err.style.display = 'none';
-  if (!name || !phone || !date) {
-    if (!name) document.getElementById('rName').focus();
-    else if (!phone) document.getElementById('rPhone').focus();
-    else document.getElementById('rDate').focus();
-    return;
-  }
-  const btn = document.querySelector('.fbtn');
-  btn.textContent = 'Confirming…'; btn.disabled = true;
-  try {
-    await emailjs.send('service_2026', 'template_55x9w5c', {
-      from_name: name,
-      from_email: document.getElementById('rEmail').value || 'Not provided',
-      whatsapp: phone,
-      service: 'Table Reservation — The Aurum',
-      message: `Guests: ${document.getElementById('rGuests').value}\nDate: ${date}\nTime: ${document.getElementById('rTime').value}\nSpecial Requests: ${document.getElementById('rNote').value || 'None'}`
-    });
-    ok.style.display = 'block';
-    document.getElementById('rName').value = '';
-    document.getElementById('rPhone').value = '';
-    document.getElementById('rEmail').value = '';
-    document.getElementById('rNote').value = '';
-    document.getElementById('rDate').value = '';
-  } catch (e) {
-    err.style.display = 'block';
-  }
-  btn.textContent = 'Confirm Reservation'; btn.disabled = false;
-}
-</script>
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/home-scene.js"></script>
+  <script src="js/shared.js"></script>
 </body>
 </html>

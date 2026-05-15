@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — NOVA ESTATE</title>
+  <meta name="description" content="Learn about NOVA Estate's story, our team of experts, and our mission to redefine luxury real estate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .about-hero-wrapper {
+      position: relative;
+      height: 60vh;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .about-hero-wrapper h1 { margin-bottom: 0; }
+    .about-hero-wrapper p { color: var(--color-text-secondary); }
+    .about-content { max-width: 800px; margin: 0 auto; }
+    .about-content p {
+      color: var(--color-text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+    .about-mission {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      margin: 3rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-mission::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 12rem;
+      color: var(--color-gold);
+      opacity: 0.05;
+      line-height: 1;
+    }
+    .about-mission h3 { margin-bottom: 1rem; }
+    .about-mission p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--color-text);
+      font-style: italic;
+    }
+
+    /* Team */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .team-card {
+      text-align: center;
+    }
+    .team-card img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1.5rem;
+      border: 2px solid var(--color-border);
+      transition: border-color var(--transition-base);
+    }
+    .team-card:hover img { border-color: var(--color-gold); }
+    .team-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      margin-bottom: 0.3rem;
+    }
+    .team-card .role {
+      color: var(--color-gold);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+    }
+    .team-card p {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      max-width: 250px;
+      margin: 0 auto;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, var(--color-gold), transparent);
+    }
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .timeline-item:nth-child(odd) {
+      flex-direction: row-reverse;
+    }
+    .timeline-item-content {
+      width: 45%;
+      padding: 1.5rem;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+    .timeline-item-content .year {
+      color: var(--color-gold);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-gold);
+      box-shadow: 0 0 20px var(--color-gold-glow);
+    }
+
+    @media (max-width: 768px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .about-mission { padding: 2rem; }
+      .timeline-item,
+      .timeline-item:nth-child(odd) {
+        flex-direction: column;
+        padding-left: 2rem;
+      }
+      .timeline-item-content { width: 100%; }
+      .timeline::before { left: 0; }
+      .timeline-dot { left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">NOVA</div>
+      <div class="loading-bar"><div class="loading-bar-fill" id="loading-fill"></div></div>
+    </div>
+  </div>
+
+  <div class="cursor-follower"></div>
+  <div id="three-container"></div>
+
+  <!-- Navigation -->
+  <header class="nav-header">
+    <a href="index.html" class="nav-logo">NOVA<span>.</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="properties.html">Properties</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="property-detail.html" class="nav-cta">Featured</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Hero -->
+  <section class="about-hero-wrapper">
+    <div style="position: relative; z-index: 1; text-align: center; max-width: 700px; padding: 0 2rem;">
+      <p class="section-subtitle" style="animation: fadeInUp 1s ease 0.3s forwards; opacity: 0;">Our Story</p>
+      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Redefining <span class="gold-text">Luxury</span></h1>
+      <p style="animation: fadeInUp 1s ease 0.7s forwards; opacity: 0;">A legacy built on trust, vision, and an unwavering commitment to excellence.</p>
+    </div>
+  </section>
+
+  <!-- About Content -->
+  <section class="section">
+    <div class="about-content">
+      <div class="reveal">
+        <p>Founded in 2024, NOVA Estate emerged from a simple belief: that extraordinary homes deserve extraordinary representation. We set out to create a real estate experience that matches the caliber of the properties we represent.</p>
+        <p>Our team brings together decades of combined experience in luxury real estate, architecture, interior design, and investment strategy. We don't just sell homes — we curate lifestyles, preserve legacies, and connect exceptional people with exceptional places.</p>
+      </div>
+
+      <div class="about-mission reveal">
+        <h3>Our Mission</h3>
+        <p>"To transform the way the world experiences luxury real estate — through unparalleled expertise, discretion, and a deep understanding of what makes a house a home."</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid" style="margin: 3rem 0;">
+        <div class="stat-item reveal">
+          <h2><span data-count-to="15" data-count-suffix="+" data-count-duration="2000">0</span></h2>
+          <p>Years Combined Exp.</p>
+        </div>
+        <div class="stat-item reveal" style="transition-delay: 0.1s;">
+          <h2><span data-count-to="1200" data-count-suffix="+" data-count-duration="2500">0</span></h2>
+          <p>Properties Sold</p>
+        </div>
+        <div class="stat-item reveal" style="transition-delay: 0.2s;">
+          <h2><span data-count-to="98" data-count-suffix="%" data-count-duration="2000">0</span></h2>
+          <p>Client Satisfaction</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-subtitle">Our Team</p>
+        <h2 class="section-title">Meet the <span class="gold-text">Experts</span></h2>
+        <p class="section-desc" style="text-align: center; margin: 0 auto;">Dedicated professionals committed to your vision.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80" alt="CEO" loading="lazy">
+          <h4>Alexander Cross</h4>
+          <p class="role">Founder & CEO</p>
+          <p>15+ years in luxury real estate. Former architect with a passion for exceptional design.</p>
+        </div>
+        <div class="team-card reveal" style="transition-delay: 0.1s;">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80" alt="Director" loading="lazy">
+          <h4>Victoria Chen</h4>
+          <p class="role">Director of Sales</p>
+          <p>Top 1% nationwide. Known for her strategic approach and client-first philosophy.</p>
+        </div>
+        <div class="team-card reveal" style="transition-delay: 0.2s;">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80" alt="Director" loading="lazy">
+          <h4>Marcus Sterling</h4>
+          <p class="role">Director of Operations</p>
+          <p>Ensures every transaction is seamless, every detail perfected, every client delighted.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section">
+    <div class="section-header">
+      <p class="section-subtitle">Our Journey</p>
+      <h2 class="section-title">Milestones That <span class="gold-text">Define Us</span></h2>
+    </div>
+    <div class="timeline" style="max-width: 900px; margin: 0 auto;">
+      <div class="timeline-item reveal">
+        <div class="timeline-item-content">
+          <div class="year">2024</div>
+          <p>NOVA Estate founded with a vision to redefine luxury real estate. First office opens in Beverly Hills.</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item reveal" style="transition-delay: 0.15s;">
+        <div class="timeline-item-content">
+          <div class="year">2025</div>
+          <p>Expanded to 8 major markets including New York, Miami, and San Francisco. Surpassed $500M in sales.</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item reveal" style="transition-delay: 0.3s;">
+        <div class="timeline-item-content">
+          <div class="year">2026</div>
+          <p>Launched international division. Named "Top Luxury Brokerage" by Forbes Global Properties.</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>NOVA<span class="gold-text">.</span></h3>
+        <p>Curating extraordinary properties and exceptional lifestyles since 2024.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="properties.html">Properties</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-column">
+        <h4>Properties</h4>
+        <a href="properties.html">Luxury Villas</a>
+        <a href="properties.html">Penthouse</a>
+        <a href="properties.html">Estates</a>
+      </div>
+      <div class="footer-column">
+        <h4>Contact</h4>
+        <a href="contact.html">info@novaestate.com</a>
+        <a href="contact.html">+1 (888) 555-0123</a>
+        <a href="contact.html">955 Rodeo Drive, BH</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 NOVA Estate. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Twitter">X</a>
+        <a href="#" aria-label="LinkedIn">LI</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/about-scene.js"></script>
+  <script src="js/shared.js"></script>
+</body>
+</html>
