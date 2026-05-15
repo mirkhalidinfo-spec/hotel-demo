@@ -14,12 +14,15 @@
       height: 50vh; min-height: 350px;
       display: flex; align-items: center; justify-content: center;
       text-align: center; position: relative; overflow: hidden;
+      background: var(--color-bg-warm);
     }
+
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
     }
+
     .service-card {
       background: var(--color-bg-card);
       border: 1px solid var(--color-border);
@@ -27,44 +30,40 @@
       padding: 2.5rem 2rem;
       text-align: center;
       transition: all var(--transition-base);
-      position: relative;
-      overflow: hidden;
+      box-shadow: var(--shadow-sm);
     }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
-      transform: scaleX(0);
-      transition: transform var(--transition-base);
-    }
-    .service-card:hover::before { transform: scaleX(1); }
+
     .service-card:hover {
-      border-color: var(--color-border-light);
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-gold-lg);
+      border-color: transparent;
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
     }
+
     .service-icon {
-      width: 70px; height: 70px;
+      width: 64px; height: 64px;
       margin: 0 auto 1.5rem;
-      background: var(--color-bg-secondary);
-      border: 1px solid var(--color-border);
-      border-radius: 50%;
+      background: var(--color-accent-subtle);
+      border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       transition: all var(--transition-base);
     }
+
     .service-card:hover .service-icon {
-      border-color: var(--color-gold);
-      background: rgba(201, 168, 76, 0.1);
+      background: var(--color-accent);
     }
+
+    .service-card:hover .service-icon {
+      font-size: 1.5rem;
+    }
+
     .service-card h3 {
       font-family: 'Cormorant Garamond', serif;
       margin-bottom: 1rem;
     }
+
     .service-card p {
       color: var(--color-text-secondary);
       font-size: 0.95rem;
@@ -76,34 +75,41 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
       position: relative;
     }
+
     .process-step {
       text-align: center;
       position: relative;
     }
+
     .process-step-num {
       width: 50px; height: 50px;
       margin: 0 auto 1rem;
-      border: 2px solid var(--color-gold);
+      background: var(--color-accent);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      color: var(--color-gold);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
       position: relative;
       z-index: 1;
-      background: var(--color-bg);
     }
+
     .process-step h4 {
       font-family: 'Cormorant Garamond', serif;
       margin-bottom: 0.5rem;
     }
+
     .process-step p {
       color: var(--color-text-secondary);
       font-size: 0.85rem;
+      line-height: 1.6;
     }
 
     @media (max-width: 1024px) {
@@ -143,7 +149,7 @@
   <section class="services-hero">
     <div style="position: relative; z-index: 1;">
       <p class="section-subtitle" style="animation: fadeInUp 1s ease 0.3s forwards; opacity: 0;">What We Offer</p>
-      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Premium <span class="gold-text">Services</span></h1>
+      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Premium <span class="accent-text">Services</span></h1>
       <p style="color: var(--color-text-secondary); animation: fadeInUp 1s ease 0.7s forwards; opacity: 0;">Comprehensive solutions tailored to the world's most discerning clients.</p>
     </div>
   </section>
@@ -183,13 +189,13 @@
     </div>
   </section>
 
-  <section class="section section-dark">
+  <section class="section-warm">
     <div class="section-inner">
       <div class="section-header">
         <p class="section-subtitle">Our Process</p>
-        <h2 class="section-title">How We <span class="gold-text">Work</span></h2>
+        <h2 class="section-title">How We <span class="accent-text">Work</span></h2>
       </div>
-      <div class="process-steps" style="max-width: 1000px; margin: 0 auto;">
+      <div class="process-steps">
         <div class="process-step reveal">
           <div class="process-step-num">01</div>
           <h4>Discovery</h4>
@@ -217,7 +223,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <h3>NOVA<span class="gold-text">.</span></h3>
+        <h3>NOVA<span class="accent-text">.</span></h3>
         <p>Curating extraordinary properties and exceptional lifestyles since 2024.</p>
       </div>
       <div class="footer-column">

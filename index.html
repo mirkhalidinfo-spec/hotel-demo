@@ -12,18 +12,20 @@
   <style>
     /* Home page specific styles */
     #three-container { z-index: 0; }
+
     .hero-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
         180deg,
-        rgba(10, 10, 15, 0.3) 0%,
-        rgba(10, 10, 15, 0.6) 50%,
-        rgba(10, 10, 15, 0.9) 100%
+        rgba(250, 249, 247, 0.15) 0%,
+        rgba(250, 249, 247, 0.4) 50%,
+        rgba(250, 249, 247, 0.95) 100%
       );
       z-index: 1;
       pointer-events: none;
     }
+
     .hero-content {
       position: relative;
       z-index: 2;
@@ -31,19 +33,21 @@
       max-width: 900px;
       padding: 0 2rem;
     }
+
     .hero-badge {
       display: inline-block;
       font-family: 'Montserrat', sans-serif;
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.3em;
-      color: var(--color-gold);
-      border: 1px solid var(--color-gold);
+      color: var(--color-accent);
+      border: 1px solid var(--color-accent);
       padding: 0.5rem 1.5rem;
       margin-bottom: 2rem;
       animation: fadeInUp 1s ease 0.3s forwards;
       opacity: 0;
     }
+
     .hero-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(3rem, 7vw, 6rem);
@@ -53,12 +57,11 @@
       animation: fadeInUp 1s ease 0.5s forwards;
       opacity: 0;
     }
-    .hero-title span {
-      background: linear-gradient(135deg, #e8d48b, #c9a84c, #a8882c);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+
+    .hero-title span.accent-text {
+      font-style: italic;
     }
+
     .hero-subtitle {
       font-family: 'Montserrat', sans-serif;
       font-size: 1.1rem;
@@ -69,6 +72,7 @@
       animation: fadeInUp 1s ease 0.7s forwards;
       opacity: 0;
     }
+
     .hero-actions {
       display: flex;
       gap: 1rem;
@@ -77,6 +81,7 @@
       animation: fadeInUp 1s ease 0.9s forwards;
       opacity: 0;
     }
+
     .hero-scroll {
       position: absolute;
       bottom: 2rem;
@@ -86,6 +91,7 @@
       animation: fadeInUp 1s ease 1.2s forwards;
       opacity: 0;
     }
+
     .hero-scroll a {
       display: flex;
       flex-direction: column;
@@ -96,45 +102,58 @@
       text-transform: uppercase;
       letter-spacing: 0.2em;
     }
+
     .scroll-indicator {
       width: 1px;
       height: 40px;
-      background: linear-gradient(180deg, var(--color-gold), transparent);
+      background: linear-gradient(180deg, var(--color-accent), transparent);
       animation: scrollPulse 2s ease infinite;
     }
+
     @keyframes scrollPulse {
       0%, 100% { opacity: 0.3; }
       50% { opacity: 1; }
     }
 
-    /* Featured Section */
+    /* Featured Properties */
     .featured-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
     }
+
     .featured-card {
       position: relative;
       border-radius: var(--radius-lg);
       overflow: hidden;
       cursor: pointer;
-      height: 400px;
+      height: 420px;
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-base);
     }
+
+    .featured-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
     .featured-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.8s ease;
     }
+
     .featured-card:hover img {
-      transform: scale(1.08);
+      transform: scale(1.05);
     }
+
     .featured-card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 40%, rgba(10, 10, 15, 0.95) 100%);
-      transition: opacity 0.3s ease;
+      background: linear-gradient(180deg, transparent 40%, rgba(26, 26, 28, 0.85) 100%);
     }
+
     .featured-card-content {
       position: absolute;
       bottom: 0;
@@ -142,28 +161,33 @@
       right: 0;
       padding: 2rem;
     }
+
     .featured-card-content h3 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.5rem;
+      color: #fff;
       margin-bottom: 0.3rem;
     }
+
     .featured-card-content .location {
-      color: var(--color-text-secondary);
+      color: rgba(255, 255, 255, 0.7);
       font-size: 0.85rem;
       margin-bottom: 0.5rem;
     }
+
     .featured-card-content .price {
-      color: var(--color-gold);
+      color: var(--color-accent-light);
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.3rem;
       font-weight: 700;
     }
+
     .featured-card-tag {
       position: absolute;
       top: 1rem;
       right: 1rem;
-      background: var(--color-gold);
-      color: var(--color-bg);
+      background: var(--color-accent);
+      color: #fff;
       padding: 0.3rem 0.8rem;
       border-radius: var(--radius-full);
       font-size: 0.7rem;
@@ -172,46 +196,53 @@
       letter-spacing: 0.05em;
     }
 
-
     /* Testimonial */
     .testimonial-card {
       background: var(--color-bg-card);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
-      padding: 2.5rem;
+      padding: 3rem;
       text-align: center;
       max-width: 700px;
       margin: 0 auto;
+      box-shadow: var(--shadow-sm);
     }
+
     .testimonial-stars {
-      color: var(--color-gold);
+      color: var(--color-accent);
       font-size: 1.2rem;
       margin-bottom: 1.5rem;
+      letter-spacing: 0.1em;
     }
+
     .testimonial-text {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.4rem;
       color: var(--color-text);
-      line-height: 1.6;
+      line-height: 1.65;
       font-style: italic;
       margin-bottom: 1.5rem;
     }
+
     .testimonial-author {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 1rem;
     }
+
     .testimonial-avatar {
       width: 50px;
       height: 50px;
       border-radius: 50%;
       object-fit: cover;
     }
+
     .testimonial-name {
       font-weight: 600;
       font-size: 0.95rem;
     }
+
     .testimonial-role {
       color: var(--color-text-secondary);
       font-size: 0.8rem;
@@ -221,18 +252,6 @@
     .cta-section {
       text-align: center;
       padding: 6rem 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .cta-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(201, 168, 76, 0.05) 0%, transparent 70%);
-      pointer-events: none;
     }
 
     @media (max-width: 768px) {
@@ -279,12 +298,12 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="page-hero" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+  <section class="page-hero" style="min-height: 100vh;">
     <div class="hero-content">
       <div class="hero-badge">Since 2024</div>
       <h1 class="hero-title">
         Where Vision<br>
-        <span>Meets Address</span>
+        <span class="accent-text">Meets Address</span>
       </h1>
       <p class="hero-subtitle">
         Curating the world's most exceptional properties for those who demand nothing less than extraordinary.
@@ -306,52 +325,50 @@
   </section>
 
   <!-- Featured Properties -->
-  <section class="section section-dark" id="featured">
-    <div class="section-inner">
-      <div class="section-header">
-        <p class="section-subtitle">Featured Collection</p>
-        <h2 class="section-title">Exceptional <span class="gold-text">Properties</span></h2>
-        <p class="section-desc" style="text-align: center; margin: 0 auto;">
-          Handpicked residences that redefine luxury living across the world's most coveted destinations.
-        </p>
+  <section class="section" id="featured">
+    <div class="section-header">
+      <p class="section-subtitle">Featured Collection</p>
+      <h2 class="section-title">Exceptional <span class="accent-text">Properties</span></h2>
+      <p class="section-desc" style="text-align: center; margin: 0 auto;">
+        Handpicked residences that redefine luxury living across the world's most coveted destinations.
+      </p>
+    </div>
+    <div class="featured-grid">
+      <div class="featured-card reveal">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Modern Hillside Villa" loading="lazy">
+        <div class="featured-card-overlay"></div>
+        <span class="featured-card-tag">Featured</span>
+        <div class="featured-card-content">
+          <h3>Villa Serenity</h3>
+          <p class="location">Beverly Hills, California</p>
+          <p class="price">$28,500,000</p>
+        </div>
       </div>
-      <div class="featured-grid">
-        <div class="featured-card reveal">
-          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Modern Hillside Villa" loading="lazy">
-          <div class="featured-card-overlay"></div>
-          <span class="featured-card-tag">Featured</span>
-          <div class="featured-card-content">
-            <h3>Villa Serenity</h3>
-            <p class="location">Beverly Hills, California</p>
-            <p class="price">$28,500,000</p>
-          </div>
+      <div class="featured-card reveal" style="transition-delay: 0.1s;">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Modern Glass Mansion" loading="lazy">
+        <div class="featured-card-overlay"></div>
+        <span class="featured-card-tag">New</span>
+        <div class="featured-card-content">
+          <h3>Glass Horizon</h3>
+          <p class="location">Malibu, California</p>
+          <p class="price">$42,000,000</p>
         </div>
-        <div class="featured-card reveal" style="transition-delay: 0.1s;">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Modern Glass Mansion" loading="lazy">
-          <div class="featured-card-overlay"></div>
-          <span class="featured-card-tag">New</span>
-          <div class="featured-card-content">
-            <h3>Glass Horizon</h3>
-            <p class="location">Malibu, California</p>
-            <p class="price">$42,000,000</p>
-          </div>
-        </div>
-        <div class="featured-card reveal" style="transition-delay: 0.2s;">
-          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Luxury Estate" loading="lazy">
-          <div class="featured-card-overlay"></div>
-          <span class="featured-card-tag">Premium</span>
-          <div class="featured-card-content">
-            <h3>Château Lumière</h3>
-            <p class="location">Saint-Tropez, France</p>
-            <p class="price">€35,000,000</p>
-          </div>
+      </div>
+      <div class="featured-card reveal" style="transition-delay: 0.2s;">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Luxury Estate" loading="lazy">
+        <div class="featured-card-overlay"></div>
+        <span class="featured-card-tag">Premium</span>
+        <div class="featured-card-content">
+          <h3>Château Lumière</h3>
+          <p class="location">Saint-Tropez, France</p>
+          <p class="price">€35,000,000</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Stats Section -->
-  <section class="section">
+  <section class="section-cream">
     <div class="stats-grid">
       <div class="stat-item reveal">
         <h2><span data-count-to="15" data-count-suffix="+" data-count-duration="2000">0</span></h2>
@@ -373,34 +390,31 @@
   </section>
 
   <!-- Testimonial -->
-  <section class="section section-dark">
-    <div class="section-inner">
-      <div class="section-header">
-        <p class="section-subtitle">Testimonials</p>
-        <h2 class="section-title">What Our <span class="gold-text">Clients Say</span></h2>
-      </div>
-      <div class="testimonial-card reveal">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-text">
-          "NOVA Estate didn't just find us a home — they understood our vision and found us a legacy. Their attention to detail and market insight is unparalleled in the luxury space."
-        </p>
-        <div class="testimonial-author">
-          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Client" loading="lazy">
-          <div>
-            <p class="testimonial-name">James Whitfield</p>
-            <p class="testimonial-role">CEO, Whitfield Capital</p>
-          </div>
+  <section class="section">
+    <div class="section-header">
+      <p class="section-subtitle">Testimonials</p>
+      <h2 class="section-title">What Our <span class="accent-text">Clients Say</span></h2>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">
+        "NOVA Estate didn't just find us a home — they understood our vision and found us a legacy. Their attention to detail and market insight is unparalleled in the luxury space."
+      </p>
+      <div class="testimonial-author">
+        <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Client" loading="lazy">
+        <div>
+          <p class="testimonial-name">James Whitfield</p>
+          <p class="testimonial-role">CEO, Whitfield Capital</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="section cta-section">
-    <div class="cta-glow"></div>
+  <section class="section-cream cta-section">
     <div class="reveal">
       <p class="section-subtitle">Get Started</p>
-      <h2 class="section-title">Ready to Find Your <span class="gold-text">Dream Home</span>?</h2>
+      <h2 class="section-title">Ready to Find Your <span class="accent-text">Dream Home</span>?</h2>
       <p class="section-desc" style="text-align: center; margin: 0 auto 2rem;">
         Let our team of experts guide you to the perfect property.
       </p>
@@ -415,7 +429,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <h3>NOVA<span class="gold-text">.</span></h3>
+        <h3>NOVA<span class="accent-text">.</span></h3>
         <p>Curating extraordinary properties and exceptional lifestyles since 2024. Your vision, our expertise.</p>
       </div>
       <div class="footer-column">

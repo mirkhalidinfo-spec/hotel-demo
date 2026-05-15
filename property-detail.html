@@ -22,22 +22,34 @@
     }
     .detail-hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 30%, rgba(10,10,15,0.95) 100%);
+      background: linear-gradient(180deg, transparent 30%, rgba(26, 26, 28, 0.85) 100%);
     }
     .detail-hero-content {
       position: relative; z-index: 1;
       padding: 3rem 2rem;
-      max-width: 1400px;
+      max-width: 1200px;
       margin: 0 auto;
       width: 100%;
     }
     .detail-hero-content h1 {
+      color: #fff;
       font-size: clamp(2.5rem, 5vw, 4rem);
+    }
+    .detail-hero-content .accent-text {
+      color: var(--color-accent-light);
+    }
+    .detail-hero-content .location {
+      color: rgba(255, 255, 255, 0.7);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
     }
     .detail-hero-content .price {
       font-family: 'Playfair Display', serif;
       font-size: 2rem;
-      color: var(--color-gold);
+      color: var(--color-accent-light);
       margin-top: 0.5rem;
     }
 
@@ -60,12 +72,17 @@
       border-radius: var(--radius-md);
       padding: 1.5rem;
       text-align: center;
+      transition: all var(--transition-fast);
+    }
+    .detail-spec:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-accent);
     }
     .detail-spec .icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
     .detail-spec .value {
       font-family: 'Playfair Display', serif;
       font-size: 1.3rem;
-      color: var(--color-gold);
+      color: var(--color-accent);
       font-weight: 700;
     }
     .detail-spec .label {
@@ -95,12 +112,14 @@
       padding: 1.5rem;
       text-align: center;
       transition: all var(--transition-base);
+      cursor: default;
     }
     .amenity-item:hover {
-      border-color: var(--color-gold);
+      border-color: var(--color-accent);
       transform: translateY(-3px);
+      box-shadow: var(--shadow-accent);
     }
-    .amenity-item .icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .amenity-item .icon { font-size: 1.8rem; margin-bottom: 0.5rem; display: block; }
     .amenity-item .name {
       font-size: 0.85rem;
       color: var(--color-text-secondary);
@@ -160,8 +179,8 @@
     <img class="detail-hero-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85" alt="Villa Serenity">
     <div class="detail-hero-overlay"></div>
     <div class="detail-hero-content">
-      <p class="section-subtitle">Beverly Hills, California</p>
-      <h1>Villa <span class="gold-text">Serenity</span></h1>
+      <p class="location">Beverly Hills, California</p>
+      <h1>Villa <span class="accent-text">Serenity</span></h1>
       <p class="price">$28,500,000</p>
     </div>
   </section>
@@ -170,15 +189,15 @@
   <section class="section">
     <div class="detail-grid">
       <div>
-        <h2 class="section-title" style="margin-bottom: 1.5rem;">Property <span class="gold-text">Details</span></h2>
+        <h2 class="section-title" style="margin-bottom: 1.5rem;">Property <span class="accent-text">Details</span></h2>
         <div class="detail-specs">
           <div class="detail-spec reveal">
-            <div class="icon">🏠</div>
+            <div class="icon">🛏</div>
             <div class="value">6</div>
             <div class="label">Bedrooms</div>
           </div>
           <div class="detail-spec reveal" style="transition-delay: 0.05s;">
-            <div class="icon">🚿</div>
+            <div class="icon">🛁</div>
             <div class="value">8</div>
             <div class="label">Bathrooms</div>
           </div>
@@ -195,7 +214,7 @@
         </div>
       </div>
       <div class="detail-desc reveal">
-        <h2 class="section-title" style="margin-bottom: 1.5rem;">About This <span class="gold-text">Residence</span></h2>
+        <h2 class="section-title" style="margin-bottom: 1.5rem;">About This <span class="accent-text">Residence</span></h2>
         <p>Perched in the prestigious heights of Beverly Hills, Villa Serenity offers an unparalleled living experience. This architectural masterpiece seamlessly blends modern luxury with timeless elegance.</p>
         <p>Floor-to-ceiling windows frame panoramic views from the Pacific Ocean to the downtown skyline. Every detail, from the hand-selected marble flooring to the custom Italian cabinetry, speaks to an uncompromising commitment to quality.</p>
         <p>The estate features a private wellness wing with a state-of-the-art gym, spa, and infinity pool that appears to merge with the horizon. Outdoor entertaining is effortless across the terraced gardens and al fresco dining pavilion.</p>
@@ -208,21 +227,21 @@
   </section>
 
   <!-- Amenities -->
-  <section class="section section-dark">
+  <section class="section-warm">
     <div class="section-inner">
       <div class="section-header">
         <p class="section-subtitle">Amenities</p>
-        <h2 class="section-title">Everything You <span class="gold-text">Deserve</span></h2>
+        <h2 class="section-title">Everything You <span class="accent-text">Deserve</span></h2>
       </div>
       <div class="amenities-grid">
-        <div class="amenity-item reveal"><div class="icon">🏊</div><div class="name">Infinity Pool</div></div>
-        <div class="amenity-item reveal" style="transition-delay: 0.05s;"><div class="icon">🧘</div><div class="name">Private Spa</div></div>
-        <div class="amenity-item reveal" style="transition-delay: 0.1s;"><div class="icon">🏋️</div><div class="name">Gym</div></div>
-        <div class="amenity-item reveal" style="transition-delay: 0.15s;"><div class="icon">🍷</div><div class="name">Wine Cellar</div></div>
-        <div class="amenity-item reveal" style="transition-delay: 0.2s;"><div class="icon">🎬</div><div class="name">Home Theater</div></div>
-        <div class="amenity-item reveal" style="transition-delay: 0.25s;"><div class="icon">🌿</div><div class="name">Terraced Gardens</div></div>
-        <div class="amenity-item reveal" style="transition-delay: 0.3s;"><div class="icon">🚗</div><div class="name">6-Car Garage</div></div>
-        <div class="amenity-item reveal" style="transition-delay: 0.35s;"><div class="icon">🔒</div><div class="name">24/7 Security</div></div>
+        <div class="amenity-item reveal"><span class="icon">🏊</span><span class="name">Infinity Pool</span></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.05s;"><span class="icon">🧘</span><span class="name">Private Spa</span></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.1s;"><span class="icon">🏋️</span><span class="name">Gym</span></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.15s;"><span class="icon">🍷</span><span class="name">Wine Cellar</span></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.2s;"><span class="icon">🎬</span><span class="name">Home Theater</span></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.25s;"><span class="icon">🌿</span><span class="name">Terraced Gardens</span></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.3s;"><span class="icon">🚗</span><span class="name">6-Car Garage</span></div>
+        <div class="amenity-item reveal" style="transition-delay: 0.35s;"><span class="icon">🔒</span><span class="name">24/7 Security</span></div>
       </div>
     </div>
   </section>
@@ -231,7 +250,7 @@
   <section class="section">
     <div class="section-header">
       <p class="section-subtitle">Gallery</p>
-      <h2 class="section-title">View the <span class="gold-text">Residence</span></h2>
+      <h2 class="section-title">View the <span class="accent-text">Residence</span></h2>
     </div>
     <div class="gallery-grid">
       <img class="full reveal" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=85" alt="Living Room" loading="lazy">
@@ -245,7 +264,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <h3>NOVA<span class="gold-text">.</span></h3>
+        <h3>NOVA<span class="accent-text">.</span></h3>
         <p>Curating extraordinary properties and exceptional lifestyles since 2024.</p>
       </div>
       <div class="footer-column">

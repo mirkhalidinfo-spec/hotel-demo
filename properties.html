@@ -14,11 +14,12 @@
       height: 50vh; min-height: 350px;
       display: flex; align-items: center; justify-content: center;
       text-align: center; position: relative; overflow: hidden;
+      background: var(--color-bg-warm);
     }
 
     /* Filter */
     .filter-bar {
-      display: flex; gap: 1rem; flex-wrap: wrap;
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
       justify-content: center; margin-bottom: 3rem;
     }
     .filter-btn {
@@ -29,14 +30,18 @@
       color: var(--color-text-secondary);
       font-family: 'Montserrat', sans-serif;
       font-size: 0.8rem;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
       cursor: pointer;
-      transition: all var(--transition-base);
+      transition: all var(--transition-fast);
     }
-    .filter-btn:hover,
+    .filter-btn:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
     .filter-btn.active {
-      border-color: var(--color-gold);
-      color: var(--color-gold);
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #fff;
     }
 
     /* Property Grid */
@@ -52,11 +57,12 @@
       overflow: hidden;
       transition: all var(--transition-base);
       cursor: pointer;
+      box-shadow: var(--shadow-sm);
     }
     .property-card:hover {
-      border-color: var(--color-border-light);
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-gold-lg);
+      border-color: transparent;
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
     }
     .property-card-image {
       height: 240px;
@@ -69,7 +75,7 @@
       transition: transform 0.8s ease;
     }
     .property-card:hover .property-card-image img {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
     .property-card-tag {
       position: absolute;
@@ -81,9 +87,9 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
-    .tag-featured { background: var(--color-gold); color: var(--color-bg); }
-    .tag-new { background: var(--color-success); color: var(--color-bg); }
-    .tag-exclusive { background: var(--color-bg-card); color: var(--color-gold); border: 1px solid var(--color-gold); }
+    .tag-featured { background: var(--color-accent); color: #fff; }
+    .tag-new { background: var(--color-success); color: #fff; }
+    .tag-exclusive { background: var(--color-bg-card); color: var(--color-accent); border: 1px solid var(--color-accent); }
 
     .property-card-body { padding: 1.5rem; }
     .property-card-body h3 {
@@ -104,7 +110,7 @@
     .property-price {
       font-family: 'Playfair Display', serif;
       font-size: 1.4rem;
-      color: var(--color-gold);
+      color: var(--color-accent);
       font-weight: 700;
     }
 
@@ -143,7 +149,7 @@
   <section class="properties-hero">
     <div style="position: relative; z-index: 1;">
       <p class="section-subtitle" style="animation: fadeInUp 1s ease 0.3s forwards; opacity: 0;">Our Collection</p>
-      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Curated <span class="gold-text">Properties</span></h1>
+      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Curated <span class="accent-text">Properties</span></h1>
       <p style="color: var(--color-text-secondary); animation: fadeInUp 1s ease 0.7s forwards; opacity: 0;">Discover the finest residences across the world's most coveted destinations.</p>
     </div>
   </section>
@@ -167,8 +173,8 @@
           <h3>Villa Serenity</h3>
           <p class="property-location">Beverly Hills, CA</p>
           <div class="property-details">
-            <span>🏠 6 Beds</span>
-            <span>🚿 8 Baths</span>
+            <span>🛏 6 Beds</span>
+            <span>🛁 8 Baths</span>
             <span>📐 8,500 sqft</span>
           </div>
           <p class="property-price">$28,500,000</p>
@@ -184,8 +190,8 @@
           <h3>Glass Horizon</h3>
           <p class="property-location">Malibu, CA</p>
           <div class="property-details">
-            <span>🏠 5 Beds</span>
-            <span>🚿 6 Baths</span>
+            <span>🛏 5 Beds</span>
+            <span>🛁 6 Baths</span>
             <span>📐 6,200 sqft</span>
           </div>
           <p class="property-price">$42,000,000</p>
@@ -201,8 +207,8 @@
           <h3>Château Lumière</h3>
           <p class="property-location">Saint-Tropez, France</p>
           <div class="property-details">
-            <span>🏠 8 Beds</span>
-            <span>🚿 10 Baths</span>
+            <span>🛏 8 Beds</span>
+            <span>🛁 10 Baths</span>
             <span>📐 12,000 sqft</span>
           </div>
           <p class="property-price">€35,000,000</p>
@@ -218,8 +224,8 @@
           <h3>The Sky Penthouse</h3>
           <p class="property-location">New York, NY</p>
           <div class="property-details">
-            <span>🏠 4 Beds</span>
-            <span>🚿 5 Baths</span>
+            <span>🛏 4 Beds</span>
+            <span>🛁 5 Baths</span>
             <span>📐 4,800 sqft</span>
           </div>
           <p class="property-price">$18,500,000</p>
@@ -234,8 +240,8 @@
           <h3>Vista Mare</h3>
           <p class="property-location">Sardinia, Italy</p>
           <div class="property-details">
-            <span>🏠 7 Beds</span>
-            <span>🚿 7 Baths</span>
+            <span>🛏 7 Beds</span>
+            <span>🛁 7 Baths</span>
             <span>📐 9,200 sqft</span>
           </div>
           <p class="property-price">€22,000,000</p>
@@ -251,8 +257,8 @@
           <h3>Desert Modern</h3>
           <p class="property-location">Palm Springs, CA</p>
           <div class="property-details">
-            <span>🏠 4 Beds</span>
-            <span>🚿 5 Baths</span>
+            <span>🛏 4 Beds</span>
+            <span>🛁 5 Baths</span>
             <span>📐 5,100 sqft</span>
           </div>
           <p class="property-price">$12,800,000</p>
@@ -264,7 +270,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <h3>NOVA<span class="gold-text">.</span></h3>
+        <h3>NOVA<span class="accent-text">.</span></h3>
         <p>Curating extraordinary properties and exceptional lifestyles since 2024.</p>
       </div>
       <div class="footer-column">

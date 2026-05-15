@@ -14,11 +14,14 @@
       height: 50vh; min-height: 350px;
       display: flex; align-items: center; justify-content: center;
       text-align: center; position: relative; overflow: hidden;
+      background: var(--color-bg-warm);
     }
+
     .gallery-masonry {
       columns: 3;
       column-gap: 1.5rem;
     }
+
     .gallery-item {
       break-inside: avoid;
       margin-bottom: 1.5rem;
@@ -26,34 +29,46 @@
       overflow: hidden;
       cursor: pointer;
       position: relative;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-base);
     }
+
+    .gallery-item:hover {
+      box-shadow: var(--shadow-md);
+    }
+
     .gallery-item img {
       width: 100%;
       display: block;
       transition: transform 0.8s ease;
     }
+
     .gallery-item:hover img {
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
+
     .gallery-item-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 50%, rgba(10,10,15,0.9) 100%);
+      background: linear-gradient(180deg, transparent 50%, rgba(26, 26, 28, 0.85) 100%);
       opacity: 0;
       transition: opacity var(--transition-base);
       display: flex;
       align-items: flex-end;
       padding: 1.5rem;
     }
+
     .gallery-item:hover .gallery-item-overlay {
       opacity: 1;
     }
+
     .gallery-item-overlay h4 {
       font-family: 'Cormorant Garamond', serif;
-      color: var(--color-text);
+      color: #fff;
     }
+
     .gallery-item-overlay p {
-      color: var(--color-gold);
+      color: var(--color-accent-light);
       font-size: 0.85rem;
       font-family: 'Montserrat', sans-serif;
       letter-spacing: 0.05em;
@@ -63,7 +78,7 @@
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.95);
+      background: rgba(0, 0, 0, 0.92);
       z-index: 999;
       display: flex;
       align-items: center;
@@ -72,27 +87,33 @@
       visibility: hidden;
       transition: all var(--transition-base);
     }
+
     .lightbox.open {
       opacity: 1;
       visibility: visible;
     }
+
     .lightbox img {
       max-width: 90%;
       max-height: 90%;
       object-fit: contain;
+      border-radius: var(--radius-sm);
     }
+
     .lightbox-close {
       position: absolute;
       top: 2rem;
       right: 2rem;
-      color: var(--color-text);
+      color: #fff;
       font-size: 2rem;
       cursor: pointer;
       background: none;
       border: none;
-      transition: color var(--transition-fast);
+      opacity: 0.7;
+      transition: opacity var(--transition-fast);
     }
-    .lightbox-close:hover { color: var(--color-gold); }
+
+    .lightbox-close:hover { opacity: 1; }
 
     @media (max-width: 1024px) {
       .gallery-masonry { columns: 2; }
@@ -129,7 +150,7 @@
   <section class="gallery-hero">
     <div style="position: relative; z-index: 1;">
       <p class="section-subtitle" style="animation: fadeInUp 1s ease 0.3s forwards; opacity: 0;">Visual Journey</p>
-      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Our <span class="gold-text">Collection</span></h1>
+      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Our <span class="accent-text">Collection</span></h1>
       <p style="color: var(--color-text-secondary); animation: fadeInUp 1s ease 0.7s forwards; opacity: 0;">A curated visual journey through the world's most extraordinary properties.</p>
     </div>
   </section>
@@ -229,7 +250,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <h3>NOVA<span class="gold-text">.</span></h3>
+        <h3>NOVA<span class="accent-text">.</span></h3>
         <p>Curating extraordinary properties and exceptional lifestyles since 2024.</p>
       </div>
       <div class="footer-column">
@@ -258,38 +279,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="js/gallery-scene.js"></script>
   <script src="js/shared.js"></script>
-  <script>
-    // Lightbox
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxClose = document.getElementById('lightbox-close');
-
-    document.querySelectorAll('.gallery-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src.replace('w=600', 'w=1200');
-        lightbox.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
-    lightboxClose.addEventListener('click', () => {
-      lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
-        lightbox.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        lightbox.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-    });
-  </script>
 </body>
 </html>

@@ -14,7 +14,9 @@
       height: 50vh; min-height: 350px;
       display: flex; align-items: center; justify-content: center;
       text-align: center; position: relative; overflow: hidden;
+      background: var(--color-bg-warm);
     }
+
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -29,25 +31,29 @@
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
       padding: 2.5rem;
+      box-shadow: var(--shadow-sm);
     }
+
     .form-group {
       margin-bottom: 1.5rem;
     }
+
     .form-group label {
       display: block;
       font-family: 'Montserrat', sans-serif;
       font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--color-text-secondary);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--color-text);
       margin-bottom: 0.5rem;
     }
+
     .form-group input,
     .form-group textarea,
     .form-group select {
       width: 100%;
       padding: 0.9rem 1.2rem;
-      background: var(--color-bg);
+      background: var(--color-bg-warm);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
       color: var(--color-text);
@@ -56,25 +62,30 @@
       transition: all var(--transition-fast);
       outline: none;
     }
+
     .form-group input:focus,
     .form-group textarea:focus,
     .form-group select:focus {
-      border-color: var(--color-gold);
-      box-shadow: 0 0 20px var(--color-gold-glow);
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px var(--color-accent-subtle);
+      background: var(--color-bg-card);
     }
+
     .form-group textarea {
       min-height: 140px;
       resize: vertical;
     }
+
     .form-group select {
       cursor: pointer;
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a67c52' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 1rem center;
     }
+
     .form-group select option {
-      background: var(--color-bg);
+      background: var(--color-bg-card);
       color: var(--color-text);
     }
 
@@ -82,40 +93,47 @@
     .contact-info {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1rem;
     }
+
     .contact-info-card {
       background: var(--color-bg-card);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
-      padding: 2rem;
+      padding: 1.5rem;
       display: flex;
-      gap: 1.5rem;
+      gap: 1.2rem;
       align-items: flex-start;
       transition: all var(--transition-base);
+      box-shadow: var(--shadow-sm);
     }
+
     .contact-info-card:hover {
-      border-color: var(--color-border-light);
-      transform: translateX(5px);
+      border-color: var(--color-accent);
+      transform: translateX(4px);
+      box-shadow: var(--shadow-accent);
     }
+
     .contact-info-icon {
-      width: 50px; height: 50px;
-      min-width: 50px;
-      background: rgba(201,168,76,0.1);
-      border: 1px solid var(--color-border);
-      border-radius: 50%;
+      width: 44px; height: 44px;
+      min-width: 44px;
+      background: var(--color-accent-subtle);
+      border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
     }
+
     .contact-info-card h4 {
       font-family: 'Cormorant Garamond', serif;
       margin-bottom: 0.3rem;
+      font-size: 1.1rem;
     }
+
     .contact-info-card p {
       color: var(--color-text-secondary);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       line-height: 1.6;
     }
 
@@ -124,10 +142,11 @@
       max-width: 1100px;
       margin: 3rem auto 0;
     }
+
     .map-container {
       width: 100%;
-      height: 350px;
-      background: var(--color-bg-card);
+      height: 300px;
+      background: var(--color-bg-warm);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
       overflow: hidden;
@@ -136,32 +155,39 @@
       justify-content: center;
       position: relative;
     }
+
     .map-container::before {
       content: '📍';
-      font-size: 3rem;
+      font-size: 2.5rem;
       z-index: 1;
     }
+
     .map-container::after {
       content: '955 Rodeo Drive, Beverly Hills, CA 90210';
       position: absolute;
-      bottom: 2rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
+      bottom: 1.5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
       color: var(--color-text-secondary);
+      background: var(--color-bg-card);
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
     }
+
     .map-grid-overlay {
       position: absolute;
       inset: 0;
       background-image:
         linear-gradient(var(--color-border) 1px, transparent 1px),
         linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
-      background-size: 60px 60px;
-      opacity: 0.3;
+      background-size: 50px 50px;
+      opacity: 0.4;
     }
 
     @media (max-width: 768px) {
       .contact-grid { grid-template-columns: 1fr; }
-      .contact-info-card { flex-direction: column; text-align: center; align-items: center; }
+      .contact-info-card { align-items: center; }
     }
   </style>
 </head>
@@ -192,7 +218,7 @@
   <section class="contact-hero">
     <div style="position: relative; z-index: 1;">
       <p class="section-subtitle" style="animation: fadeInUp 1s ease 0.3s forwards; opacity: 0;">Get in Touch</p>
-      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Let's <span class="gold-text">Connect</span></h1>
+      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Let's <span class="accent-text">Connect</span></h1>
       <p style="color: var(--color-text-secondary); animation: fadeInUp 1s ease 0.7s forwards; opacity: 0;">Begin your journey to exceptional living. We're here to help.</p>
     </div>
   </section>
@@ -201,7 +227,7 @@
     <div class="contact-grid">
       <!-- Form -->
       <div class="contact-form reveal">
-        <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Send a <span class="gold-text">Message</span></h3>
+        <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Send a <span class="accent-text">Message</span></h3>
         <form id="contactForm" onsubmit="return handleSubmit(event)">
           <div class="form-group">
             <label for="name">Full Name</label>
@@ -281,7 +307,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <h3>NOVA<span class="gold-text">.</span></h3>
+        <h3>NOVA<span class="accent-text">.</span></h3>
         <p>Curating extraordinary properties and exceptional lifestyles since 2024.</p>
       </div>
       <div class="footer-column">
@@ -316,7 +342,7 @@
       const btn = e.target.querySelector('button[type="submit"]');
       const originalText = btn.innerHTML;
       btn.innerHTML = '✓ Message Sent!';
-      btn.style.background = 'linear-gradient(135deg, #4ade80, #22c55e)';
+      btn.style.background = '#4a9e6b';
       setTimeout(() => {
         btn.innerHTML = originalText;
         btn.style.background = '';

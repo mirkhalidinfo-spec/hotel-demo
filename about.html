@@ -18,9 +18,11 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      background: var(--color-bg-warm);
     }
     .about-hero-wrapper h1 { margin-bottom: 0; }
     .about-hero-wrapper p { color: var(--color-text-secondary); }
+
     .about-content { max-width: 800px; margin: 0 auto; }
     .about-content p {
       color: var(--color-text-secondary);
@@ -28,6 +30,7 @@
       line-height: 1.9;
       margin-bottom: 1.5rem;
     }
+
     .about-mission {
       background: var(--color-bg-card);
       border: 1px solid var(--color-border);
@@ -36,6 +39,7 @@
       margin: 3rem 0;
       position: relative;
       overflow: hidden;
+      box-shadow: var(--shadow-sm);
     }
     .about-mission::before {
       content: '"';
@@ -44,9 +48,10 @@
       left: 20px;
       font-family: 'Playfair Display', serif;
       font-size: 12rem;
-      color: var(--color-gold);
-      opacity: 0.05;
+      color: var(--color-accent);
+      opacity: 0.04;
       line-height: 1;
+      pointer-events: none;
     }
     .about-mission h3 { margin-bottom: 1rem; }
     .about-mission p {
@@ -54,6 +59,7 @@
       font-size: 1.5rem;
       color: var(--color-text);
       font-style: italic;
+      line-height: 1.6;
     }
 
     /* Team */
@@ -64,39 +70,51 @@
     }
     .team-card {
       text-align: center;
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+      transition: all var(--transition-base);
+    }
+    .team-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
     }
     .team-card img {
-      width: 150px;
-      height: 150px;
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
       object-fit: cover;
       margin: 0 auto 1.5rem;
-      border: 2px solid var(--color-border);
-      transition: border-color var(--transition-base);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
-    .team-card:hover img { border-color: var(--color-gold); }
     .team-card h4 {
       font-family: 'Cormorant Garamond', serif;
       margin-bottom: 0.3rem;
     }
     .team-card .role {
-      color: var(--color-gold);
-      font-size: 0.85rem;
+      color: var(--color-accent);
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 0.8rem;
+      font-weight: 500;
     }
     .team-card p {
       color: var(--color-text-secondary);
       font-size: 0.9rem;
       max-width: 250px;
       margin: 0 auto;
+      line-height: 1.6;
     }
 
     /* Timeline */
     .timeline {
       position: relative;
       padding: 2rem 0;
+      max-width: 900px;
+      margin: 0 auto;
     }
     .timeline::before {
       content: '';
@@ -105,7 +123,7 @@
       top: 0;
       bottom: 0;
       width: 1px;
-      background: linear-gradient(180deg, transparent, var(--color-gold), transparent);
+      background: linear-gradient(180deg, transparent, var(--color-accent), transparent);
     }
     .timeline-item {
       display: flex;
@@ -122,27 +140,38 @@
       background: var(--color-bg-card);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-base);
+    }
+    .timeline-item-content:hover {
+      box-shadow: var(--shadow-md);
     }
     .timeline-item-content .year {
-      color: var(--color-gold);
+      color: var(--color-accent);
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
     }
+    .timeline-item-content p {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
     .timeline-dot {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      background: var(--color-gold);
-      box-shadow: 0 0 20px var(--color-gold-glow);
+      background: var(--color-accent);
+      border: 3px solid var(--color-bg);
+      box-shadow: 0 0 0 2px var(--color-accent);
     }
 
     @media (max-width: 768px) {
-      .team-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
       .about-mission { padding: 2rem; }
       .timeline-item,
       .timeline-item:nth-child(odd) {
@@ -188,7 +217,7 @@
   <section class="about-hero-wrapper">
     <div style="position: relative; z-index: 1; text-align: center; max-width: 700px; padding: 0 2rem;">
       <p class="section-subtitle" style="animation: fadeInUp 1s ease 0.3s forwards; opacity: 0;">Our Story</p>
-      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Redefining <span class="gold-text">Luxury</span></h1>
+      <h1 style="animation: fadeInUp 1s ease 0.5s forwards; opacity: 0;">Redefining <span class="accent-text">Luxury</span></h1>
       <p style="animation: fadeInUp 1s ease 0.7s forwards; opacity: 0;">A legacy built on trust, vision, and an unwavering commitment to excellence.</p>
     </div>
   </section>
@@ -225,11 +254,11 @@
   </section>
 
   <!-- Team -->
-  <section class="section section-dark">
+  <section class="section-warm">
     <div class="section-inner">
       <div class="section-header">
         <p class="section-subtitle">Our Team</p>
-        <h2 class="section-title">Meet the <span class="gold-text">Experts</span></h2>
+        <h2 class="section-title">Meet the <span class="accent-text">Experts</span></h2>
         <p class="section-desc" style="text-align: center; margin: 0 auto;">Dedicated professionals committed to your vision.</p>
       </div>
       <div class="team-grid">
@@ -259,9 +288,9 @@
   <section class="section">
     <div class="section-header">
       <p class="section-subtitle">Our Journey</p>
-      <h2 class="section-title">Milestones That <span class="gold-text">Define Us</span></h2>
+      <h2 class="section-title">Milestones That <span class="accent-text">Define Us</span></h2>
     </div>
-    <div class="timeline" style="max-width: 900px; margin: 0 auto;">
+    <div class="timeline">
       <div class="timeline-item reveal">
         <div class="timeline-item-content">
           <div class="year">2024</div>
@@ -290,7 +319,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <h3>NOVA<span class="gold-text">.</span></h3>
+        <h3>NOVA<span class="accent-text">.</span></h3>
         <p>Curating extraordinary properties and exceptional lifestyles since 2024.</p>
       </div>
       <div class="footer-column">
